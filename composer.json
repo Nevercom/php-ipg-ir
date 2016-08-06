@@ -1,6 +1,6 @@
 {
   "name": "nevercom/iripg",
-  "description": "An IPG (Internet Payment Gateway) manager to work with Iranian Banks IPG.",
+  "description": "An IPG (Internet Payment Gateway) manager to work with Iranian Banking System.",
   "minimum-stability": "dev",
   "license": "open-source",
   "authors": [
@@ -10,6 +10,7 @@
     }
   ],
   "require": {
+    "php": ">=5.3.0",
     "joshcam/mysqli-database-class": "dev-master"
   },
   "autoload": {
