@@ -9,13 +9,13 @@ use IPG\Models\VerificationResponse;
 
 abstract class AbstractIPG {
     /**
-     * @param int    $transactionId
-     * @param int    $amount
-     * @param string $callbackUrl
+     * @param int    $paymentId Payment ID, this the id that is used to identify the transaction
+     * @param int    $amount Amount of payment (Rial)
+     * @param string $callbackUrl Callback URL which the data should be sent to by IPG upon payment
      *
      * @return PaymentResponse
      */
-    abstract public function startPayment($transactionId, $amount, $callbackUrl);
+    abstract public function startPayment($paymentId, $amount, $callbackUrl);
 
     /**
      * @param array $request $_REQUEST is passed to this method for validation check
@@ -25,18 +25,18 @@ abstract class AbstractIPG {
     abstract public function isPaymentValid($request);
 
     /**
-     * @param int    $transactionId
+     * @param int    $paymentId
      * @param string $referenceId
      *
      * @return VerificationResponse
      */
-    abstract public function verify($transactionId, $referenceId);
+    abstract public function verify($paymentId, $referenceId);
 
-    abstract public function inquiry($transactionId, $referenceId);
+    abstract public function inquiry($paymentId, $referenceId);
 
-    abstract public function settle($transactionId, $referenceId);
+    abstract public function settle($paymentId, $referenceId);
 
-    abstract public function reversal($transactionId, $referenceId);
+    abstract public function reversal($paymentId, $referenceId);
 
     /**
      * @return int
