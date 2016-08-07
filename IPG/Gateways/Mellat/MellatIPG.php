@@ -114,7 +114,7 @@ class MellatIPG extends AbstractIPG {
     }
 
     public function isPaymentValid($request) {
-        $isValid = $request['ResCode'] == 0 && $request['saleOrderId'] > 0 && $request['SaleReferenceId'] > 0 &&
+        $isValid = $request['ResCode'] == 0 && $request['SaleOrderId'] > 0 && $request['SaleReferenceId'] > 0 &&
                    isset($request['RefId']);
 
         $this->errorCode = $request['ResCode'];
@@ -145,7 +145,7 @@ class MellatIPG extends AbstractIPG {
         }
         $resCode = $result->return;
 
-        $status = $resCode === '0';
+        $status = $resCode === '0' || $resCode === 0;
 
         $this->errorCode = $status ? (int)$resCode : -1;
 
@@ -171,7 +171,7 @@ class MellatIPG extends AbstractIPG {
             $result         = new bpInquiryRequestResponse();
             $result->return = -1;
         }
-        $status = $result->return === '0';
+        $status = $result->return === '0'|| $result->return === 0;
 
         $this->errorCode = $status ? (int)$result->return : -1;
 
@@ -193,7 +193,7 @@ class MellatIPG extends AbstractIPG {
             $result         = new bpSettleRequestResponse();
             $result->return = -1;
         }
-        $status = $result->return === '0' || $result->return == '45';
+        $status = $result->return === '0' || $result->return === 0 || $result->return == '45';
 
         $this->errorCode = $status ? (int)$result->return : -1;
 
@@ -215,7 +215,7 @@ class MellatIPG extends AbstractIPG {
             $result         = new bpReversalRequestResponse();
             $result->return = -1;
         }
-        $status = $result->return === '0';
+        $status = $result->return === '0' || $result->return === 0;
 
         $this->errorCode = $status ? (int)$result->return : -1;
 
