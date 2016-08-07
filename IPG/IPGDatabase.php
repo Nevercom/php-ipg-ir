@@ -60,7 +60,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
      *
      * @throws \Exception if any error occur in connecting to database, an exception is thrown explaining the issue.
      */
-    public function __construct($username, $password, $db, $host = NULL, $port = NULL,
+    public function __construct($username, $password, $db, $host = 'localhost', $port = '3306',
                                 $charset = 'utf8') {
 
         $this->db = new MysqliDb($host, $username, $password, $db, $port, $charset);
@@ -132,7 +132,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
         $this->db->where('id', $id);
 
         return $this->db->update($this->TABLE_LOGS, [
-            "output"      => $output,
+            "output"      => is_array($output) ? json_encode($output, JSON_UNESCAPED_UNICODE) : $output,
             "status_code" => $statusCode
         ]);
     }
