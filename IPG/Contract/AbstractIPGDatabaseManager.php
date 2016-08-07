@@ -34,6 +34,9 @@ abstract class AbstractIPGDatabaseManager {
     const SETTLED  = 2;
     const REVERSED = 3;
 
+    public abstract function __construct($username, $password, $db, $host = 'localhost', $port = '3306',
+                                         $charset = 'utf8');
+
     public abstract function saveTransaction($transactionId, $bankName, $amount);
 
     public abstract function updateTransaction($payId, $refId = NULL, $status = NULL);
@@ -62,4 +65,5 @@ abstract class AbstractIPGDatabaseManager {
      *
      */
     public abstract function setLoggingEnabled($enabled);
+
 }
