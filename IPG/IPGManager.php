@@ -41,7 +41,7 @@ class IPGManager {
     protected $dbMan;
     /** @var AbstractIPG */
     private $ipg;
-    private   $referenceId;
+    private $referenceId;
 
     public function __construct(AbstractIPG $ipg, AbstractIPGDatabaseManager $db) {
         if (!($ipg instanceof AbstractIPG)) {
@@ -108,10 +108,13 @@ class IPGManager {
                 : "&" . self::PAY_ID . "={$payId}");
         // every method call is logged to the database
         $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\startPayment", [
-            "transactionId" => $transactionId, "amount" => $amount, "callbackUrl" => $callbackUrl
+            "PaymentId"     => $payId,
+            "transactionId" => $transactionId,
+            "amount"        => $amount,
+            "callbackUrl"   => $callbackUrl
         ]);
         // actula method call
-        $paymentResponse = $this->ipg->startPayment($transactionId, $amount, $callbackUrl);
+        $paymentResponse = $this->ipg->startPayment($payId, $amount, $callbackUrl);
         // and in the end, we update the logged record in the database to include the method response
         $this->dbMan->logMethodResponse($logId, [
             "isIsSuccessful" => $paymentResponse->isIsSuccessful(),
