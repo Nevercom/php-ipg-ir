@@ -137,7 +137,7 @@ class IPGManager {
              */
             return FALSE;
         }
-        if ($this->dbMan->getTransactionStatus($payId < 1)) {
+        if ($this->dbMan->getTransactionStatus($payId > 1)) {
             return FALSE;
         }
         // each method call is logged
