@@ -100,7 +100,7 @@ This library uses `MySQL` database by default, and a predefined `DB Schema`. you
     ALTER TABLE `bank_logs`
       MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
-First, you need to extend each Gateway class you want to use, and provide authentication info for that Gatesway
+First, you need to extend each Gateway class you want to use, and provide authentication info for that Gateway
 
     <?php
     
