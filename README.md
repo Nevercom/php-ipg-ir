@@ -7,6 +7,99 @@ Install Using Composer
 
 Usage
 -----
+This library uses `MySQL` database by default, and a predefined `DB Schema`. you should create the required tables in order to use this library. (BTW, you can implement your own DB logic using your own schema if you don't want to use the provided class in this library)
+
+    -- phpMyAdmin SQL Dump
+    -- version 4.5.0.2
+    -- http://www.phpmyadmin.net
+    --
+    -- Host: localhost
+    -- Generation Time: Aug 07, 2016 at 10:16 AM
+    -- Server version: 5.5.50-0ubuntu0.14.04.1-log
+    -- PHP Version: 5.5.9-1ubuntu4.19
+    
+    SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+    SET time_zone = "+00:00";
+    
+    
+    -- --------------------------------------------------------
+    
+    --
+    -- Table structure for table `bank_transactions`
+    --
+    
+    CREATE TABLE `bank_transactions` (
+      `pay_id` bigint(20) NOT NULL,
+      `transaction_id` bigint(20) NOT NULL,
+      `bank_name` varchar(255) NOT NULL,
+      `bank_id` tinyint(4) NOT NULL,
+      `amount` bigint(20) NOT NULL,
+      `reference_id` varchar(256) NOT NULL,
+      `status` tinyint(3) NOT NULL,
+      `created_at` datetime NOT NULL,
+      `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+    --
+    -- Indexes for dumped tables
+    --
+    
+    --
+    -- Indexes for table `bank_transactions`
+    --
+    ALTER TABLE `bank_transactions`
+      ADD PRIMARY KEY (`pay_id`),
+      ADD KEY `transaction_id` (`transaction_id`),
+      ADD KEY `reference_id` (`reference_id`(255)),
+      ADD KEY `status` (`status`);
+    
+    --
+    -- AUTO_INCREMENT for dumped tables
+    --
+    
+    --
+    -- AUTO_INCREMENT for table `bank_transactions`
+    --
+    ALTER TABLE `bank_transactions`
+      MODIFY `pay_id` bigint(20) NOT NULL AUTO_INCREMENT;
+    
+    -- --------------------------------------------------------
+    
+    --
+    -- Table structure for table `bank_logs`
+    --
+    
+    CREATE TABLE `bank_logs` (
+      `id` int(20) NOT NULL,
+      `pay_id` int(20) NOT NULL,
+      `method` varchar(2048) NOT NULL,
+      `status_code` int(11) NOT NULL,
+      `input` text NOT NULL,
+      `output` text NOT NULL,
+      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+    --
+    -- Indexes for dumped tables
+    --
+    
+    --
+    -- Indexes for table `bank_logs`
+    --
+    ALTER TABLE `bank_logs`
+      ADD PRIMARY KEY (`id`),
+      ADD KEY `pay_id` (`pay_id`);
+    
+    --
+    -- AUTO_INCREMENT for dumped tables
+    --
+    
+    --
+    -- AUTO_INCREMENT for table `bank_logs`
+    --
+    ALTER TABLE `bank_logs`
+      MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+
 First, you need to extend each Gateway class you want to use, and provide authentication info for that Gatesway
 
     <?php
@@ -114,3 +207,45 @@ In the callback file, you need to check that the payment is successful, if so de
     }
     
     // render the result page
+
+Adding another Gateway
+----------------------
+
+if you want to use another IPG that is not implemented in this library, you should create a new class and extend it from `IPG\Contract\AbstractIPG` and provide the logic for that particular IPG.
+
+Not using MySQL or you want to use your own DB Schema and logic
+---------------------------------------------------------------
+You can extend the `IPG\Contract\AbstractIPGDatabaseManager`  and provide the logic for database interaction.
+
+Operation logging
+-----------------
+
+Operation logging is activated by default, which will log each method call with its input and output. If you wish to turn this feature off, you should call the `setLoggingEnabled` method.
+
+    $man->setLoggingEnabled(false);
+
+License
+-------
+
+> MIT License
+> 
+> Copyright (c) 2016 Mohammad Azam Rahmanpour
+> 
+> Permission is hereby granted, free of charge, to any person obtaining
+> a copy of this software and associated documentation files (the
+> "Software"), to deal in the Software without restriction, including
+> without limitation the rights to use, copy, modify, merge, publish,
+> distribute, sublicense, and/or sell copies of the Software, and to
+> permit persons to whom the Software is furnished to do so, subject to
+> the following conditions:
+> 
+> The above copyright notice and this permission notice shall be
+> included in all copies or substantial portions of the Software.
+> 
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+> IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+> CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+> TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+> SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
