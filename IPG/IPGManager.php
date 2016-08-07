@@ -34,6 +34,7 @@ use Exception;
 use IPG\Contract\AbstractIPG;
 use IPG\Contract\AbstractIPGDatabaseManager;
 use IPG\Models\PaymentResponse;
+use IPG\Models\ValidationResponse;
 
 class IPGManager {
     const PAY_ID = "IPGPaymentId";
@@ -130,16 +131,21 @@ class IPGManager {
     /**
      * @param array $request The $_REQUEST variable must be provided
      *
-     * @return boolean
+     * @return ValidationResponse
      */
-    public function isPaymentValid($request) {
+    public function validatePayment($request) {
         $payId = $request[self::PAY_ID];
+        $vRes = new ValidationResponse();
+        $vRes->setValid(FALSE);
         if (empty($payId)) {
             /*
              * If there is no PaymentId present in the $_REQUEST, something mysterious happened !!!
              */
-            return FALSE;
+
+
+            return $vRes;
         }
+
         if ($this->dbMan->getTransactionStatus($payId > 1)) {
             return FALSE;
         }
