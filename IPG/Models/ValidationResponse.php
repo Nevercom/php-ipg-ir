@@ -36,6 +36,10 @@ class ValidationResponse {
     private $valid;
     /** @var  mixed */
     private $referenceId;
+    /** @var  int */
+    private $payId;
+    /** @var  int */
+    private $transactionId;
 
     /**
      * @return boolean
@@ -63,6 +67,34 @@ class ValidationResponse {
      */
     public function setReferenceId($referenceId) {
         $this->referenceId = $referenceId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPayId() {
+        return $this->payId;
+    }
+
+    /**
+     * @param int $payId
+     */
+    public function setPayId($payId) {
+        $this->payId = $payId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransactionId() {
+        return $this->transactionId;
+    }
+
+    /**
+     * @param int $transactionId
+     */
+    public function setTransactionId($transactionId) {
+        $this->transactionId = $transactionId;
     }
 
 
