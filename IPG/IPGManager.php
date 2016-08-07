@@ -43,6 +43,13 @@ class IPGManager {
     /** @var AbstractIPG */
     private $ipg;
     private $referenceId;
+    private $errorCode;
+    private $errorMeaasege = Array(
+        5000 => "no PayId",
+        5001 => "already verified",
+        5002 => 'already settled',
+        5003 => 'reversed'
+    );
 
     public function __construct(AbstractIPG $ipg, AbstractIPGDatabaseManager $db) {
         if (!($ipg instanceof AbstractIPG)) {
@@ -135,19 +142,24 @@ class IPGManager {
      */
     public function validatePayment($request) {
         $payId = $request[self::PAY_ID];
-        $vRes = new ValidationResponse();
+        $vRes  = new ValidationResponse();
         $vRes->setValid(FALSE);
         if (empty($payId)) {
             /*
              * If there is no PaymentId present in the $_REQUEST, something mysterious happened !!!
              */
-
+            $this->errorCode = 5000;
 
             return $vRes;
         }
+        $vRes->setTransactionId($this->dbMan->getTransactionId($payId));
+        $vRes->setPayId($payId);
+        $trStatus = $this->dbMan->getTransactionStatus($payId);
+        if ($trStatus > 0) {
+            // Payment already done, we do this to prevent using the same data to get product multiple times
+            $this->errorCode = 5000 + $trStatus;
 
-        if ($this->dbMan->getTransactionStatus($payId > 1)) {
-            return FALSE;
+            return $vRes;
         }
         // each method call is logged
         $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\isPaymentValid", $request);
@@ -156,6 +168,7 @@ class IPGManager {
         // we need this "Referenece ID" for further API calls, such as "verify"
         $this->referenceId = $response->getReferenceId();
         // Again, each method response is logged
+        $vRes->setReferenceId($response->getReferenceId());
         $this->dbMan->logMethodResponse($logId, [
             "isValid"     => $response->isValid(),
             "ReferenceId" => $response->getReferenceId()
@@ -165,10 +178,13 @@ class IPGManager {
             // store the reference id
             $this->dbMan->updateTransaction($payId, $response->getReferenceId());
 
-            return FALSE;
+            return $vRes;
         }
 
-        return $this->verify($payId, $this->referenceId);
+        $verify = $this->verify($payId, $this->referenceId);
+        $vRes->setValid($verify);
+
+        return $vRes;
     }
 
     /**
@@ -179,11 +195,12 @@ class IPGManager {
      * @return bool
      */
     public function verify($payId, $referenceId) {
-        $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\verify",
-                                             [
-                                                 "payId"       => $payId,
-                                                 "referenceId" => $referenceId
-                                             ]);
+        $this->errorCode = -1;
+        $logId           = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\verify",
+                                                       [
+                                                           "payId"       => $payId,
+                                                           "referenceId" => $referenceId
+                                                       ]);
 
         $verificationResponse = $this->ipg->verify($payId, $referenceId);
 
@@ -209,11 +226,12 @@ class IPGManager {
      * @return bool
      */
     public function inquiry($payId, $referenceId) {
-        $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\inquiry",
-                                             [
-                                                 "payId"       => $payId,
-                                                 "referenceId" => $referenceId
-                                             ]);
+        $this->errorCode = -1;
+        $logId           = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\inquiry",
+                                                       [
+                                                           "payId"       => $payId,
+                                                           "referenceId" => $referenceId
+                                                       ]);
 
         $res = $this->ipg->inquiry($payId, $referenceId);
 
@@ -235,11 +253,12 @@ class IPGManager {
      * @return bool
      */
     public function settle($payId, $referenceId) {
-        $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\settle",
-                                             [
-                                                 "payId"       => $payId,
-                                                 "referenceId" => $referenceId
-                                             ]);
+        $this->errorCode = -1;
+        $logId           = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\settle",
+                                                       [
+                                                           "payId"       => $payId,
+                                                           "referenceId" => $referenceId
+                                                       ]);
 
         $res = $this->ipg->settle($payId, $referenceId);
 
@@ -261,11 +280,12 @@ class IPGManager {
      * @return bool
      */
     public function reversal($payId, $referenceId) {
-        $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\reversal",
-                                             [
-                                                 "payId"       => $payId,
-                                                 "referenceId" => $referenceId
-                                             ]);
+        $this->errorCode = -1;
+        $logId           = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\reversal",
+                                                       [
+                                                           "payId"       => $payId,
+                                                           "referenceId" => $referenceId
+                                                       ]);
 
         $res = $this->ipg->reversal($payId, $referenceId);
 
@@ -283,6 +303,10 @@ class IPGManager {
      * @return int
      */
     public function getErrorCode() {
+        if ($this->errorCode > 0) {
+            return $this->errorCode;
+        }
+
         return $this->ipg->getErrorCode();
     }
 
@@ -290,6 +314,10 @@ class IPGManager {
      * @return string
      */
     public function getErrorMessage() {
+        if ($this->errorCode > 0) {
+            return $this->errorMeaasege[$this->errorCode];
+        }
+
         return $this->ipg->getErrorMessage();
     }
 
