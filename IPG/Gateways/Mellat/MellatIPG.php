@@ -114,7 +114,7 @@ class MellatIPG extends AbstractIPG {
     }
 
     public function isPaymentValid($request) {
-        $isValid = $request['ResCode'] === "0" && $request['saleOrderId'] > 0 && $request['SaleReferenceId'] > 0 &&
+        $isValid = $request['ResCode'] == 0 && $request['saleOrderId'] > 0 && $request['SaleReferenceId'] > 0 &&
                    isset($request['RefId']);
 
         $this->errorCode = $request['ResCode'];
