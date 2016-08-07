@@ -161,4 +161,11 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
 
         return $row[$this->STATUS];
     }
+
+    public function getTransactionId($payId) {
+        $this->db->where($this->PAY_ID, $payId);
+        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->TR_ID);
+
+        return $row[$this->TR_ID];
+    }
 }
