@@ -56,6 +56,13 @@ abstract class AbstractIPGDatabaseManager {
      */
     public abstract function getTransactionStatus($payId);
 
+    /**
+     * @param int $payId Payment ID
+     *
+     * @return int Transaction ID
+     */
+    public abstract function getTransactionId($payId);
+
     public abstract function logMethodCall($paymentId, $methodName, $input);
 
     public abstract function logMethodResponse($id, $output, $statusCode = 0);
