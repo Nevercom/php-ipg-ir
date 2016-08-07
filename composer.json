@@ -1,12 +1,15 @@
 {
   "name": "nevercom/iripg",
   "description": "An IPG (Internet Payment Gateway) manager to work with Iranian Banking System.",
+  "homepage": "https://github.com/Nevercom/php-ipg-ir",
   "minimum-stability": "dev",
   "license": "open-source",
   "authors": [
     {
       "name": "Mohammad Azam Rahmanpour (nevercom)",
-      "email": "nevercom@gmail.com"
+      "email": "nevercom@gmail.com",
+      "homepage": "http://nevercom.blog.ir",
+      "role": "Developer"
     }
   ],
   "require": {
