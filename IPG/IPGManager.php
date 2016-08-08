@@ -170,8 +170,10 @@ class IPGManager {
         // Again, each method response is logged
         $vRes->setReferenceId($response->getReferenceId());
         $this->dbMan->logMethodResponse($logId, [
-            "isValid"     => $response->isValid(),
-            "ReferenceId" => $response->getReferenceId()
+            "isValid"       => $response->isValid(),
+            "ReferenceId"   => $response->getReferenceId(),
+            "PayId"         => $response->getPayId(),
+            "TransactionId" => $response->getTransactionId()
         ], $this->ipg->getErrorCode());
 
         if (!$response->isValid()) {
