@@ -89,7 +89,7 @@ class MellatIPG extends AbstractIPG {
             $result = $this->service->bpPayRequest($req);
         } catch (Exception $e) {
             $result         = new bpPayRequestResponse();
-            $result->return = "-1,222";
+            $result->return = "-1,0";
         }
 
         $resultArray = explode(',', $result->return);
