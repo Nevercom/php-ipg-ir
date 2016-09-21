@@ -47,7 +47,7 @@ class ParsianIPG extends AbstractIPG {
 
         try {
             $result = $this->service->PinPaymentRequest($req);
-            print_r($result);
+//            print_r($result);
         } catch (Exception $e) {
             $result         = new PinPaymentRequestResponse();
             $result->status = -1;
