@@ -72,12 +72,12 @@ class ParsianIPG extends AbstractIPG {
     }
 
     public function isPaymentValid($request) {
-        $this->errorCode = $_REQUEST['rs'];
+        $this->errorCode = $request['rs'];
 
-        $isValid = $_REQUEST['rs'] === 0 && $_REQUEST['au'] != -1;
+        $isValid = $request['rs'] === 0 && $request['au'] != -1;
         $res     = new ValidationResponse();
         $res->setValid($isValid);
-        $res->setReferenceId($_REQUEST['au']);
+        $res->setReferenceId($request['au']);
 
         return $res;
     }
