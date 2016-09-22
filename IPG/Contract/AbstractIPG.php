@@ -8,9 +8,17 @@ use IPG\Models\ValidationResponse;
 use IPG\Models\VerificationResponse;
 
 abstract class AbstractIPG {
+     protected $amount;
     /**
-     * @param int    $paymentId Payment ID, this the id that is used to identify the transaction
-     * @param int    $amount Amount of payment (Rial)
+     * AbstractIPG constructor.
+     *
+     * @param array $config
+     */
+    abstract function __construct($config = array());
+
+    /**
+     * @param int    $paymentId   Payment ID, this the id that is used to identify the transaction
+     * @param int    $amount      Amount of payment (Rial)
      * @param string $callbackUrl Callback URL which the data should be sent to by IPG upon payment
      *
      * @return PaymentResponse
@@ -37,6 +45,7 @@ abstract class AbstractIPG {
     abstract public function settle($paymentId, $referenceId);
 
     abstract public function reversal($paymentId, $referenceId);
+
 
     /**
      * @return int
