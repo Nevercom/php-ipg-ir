@@ -34,19 +34,24 @@ use IPG\Contract\AbstractIPGDatabaseManager;
 use MysqliDb;
 
 class IPGDatabase extends AbstractIPGDatabaseManager {
-    private $PAY_ID             = 'pay_id';
-    private $TR_ID              = 'transaction_id';
-    private $BANK_NAME          = 'bank_name';
-    private $BANK_ID            = 'bank_id';
-    private $AMOUNT             = 'amount';
-    private $REF_ID             = 'reference_id';
-    private $STATUS             = 'status';
-    private $CR_AT              = 'created_at';
-    private $UP_AT              = 'updated_at';
+    private $PAY_ID    = 'pay_id';
+    private $TR_ID     = 'transaction_id';
+    private $BANK_NAME = 'bank_name';
+    private $BANK_ID   = 'bank_id';
+    private $AMOUNT    = 'amount';
+    private $REF_ID    = 'reference_id';
+    private $AUTHORITY = 'authority';
+    private $STATUS    = 'status';
+    private $CR_AT     = 'created_at';
+    private $UP_AT     = 'updated_at';
+
     private $TABLE_TRANSACTIONS = 'bank_transactions';
     private $TABLE_LOGS         = 'bank_logs';
+
+    /** @var MysqliDb */
     private $db;
-    private $logging            = TRUE;
+
+    private $logging = TRUE;
 
     /**
      * This class handles all the database interaction supporting the Payment process
@@ -167,5 +172,12 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
         $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->TR_ID);
 
         return $row[$this->TR_ID];
+    }
+
+    public function getTransactionAmount($payId) {
+        $this->db->where($this->PAY_ID, $payId);
+        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->AMOUNT);
+
+        return $row[$this->AMOUNT];
     }
 }
