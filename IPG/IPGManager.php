@@ -44,7 +44,7 @@ class IPGManager {
     private $ipg;
     private $referenceId;
     private $errorCode;
-    private $errorMeaasege = Array(
+    private $errorMessage = Array(
         5000 => "no PayId",
         5001 => "already verified",
         5002 => 'already settled',
@@ -317,7 +317,7 @@ class IPGManager {
      */
     public function getErrorMessage() {
         if ($this->errorCode > 0) {
-            return $this->errorMeaasege[$this->errorCode];
+            return $this->errorMessage[$this->errorCode];
         }
 
         return $this->ipg->getErrorMessage();
