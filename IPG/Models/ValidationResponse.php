@@ -40,6 +40,8 @@ class ValidationResponse {
     private $payId;
     /** @var  int */
     private $transactionId;
+    /** @var int */
+    private $amount;
 
     /**
      * @return boolean
@@ -95,6 +97,20 @@ class ValidationResponse {
      */
     public function setTransactionId($transactionId) {
         $this->transactionId = $transactionId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmount() {
+        return $this->amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function setAmount($amount) {
+        $this->amount = $amount;
     }
 
 
