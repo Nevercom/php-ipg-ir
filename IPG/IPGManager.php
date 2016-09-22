@@ -50,6 +50,7 @@ class IPGManager {
         5002 => 'already settled',
         5003 => 'reversed'
     );
+    private $amount;
 
     public function __construct(AbstractIPG $ipg, AbstractIPGDatabaseManager $db) {
         if (!($ipg instanceof AbstractIPG)) {
@@ -88,14 +89,16 @@ class IPGManager {
         if (empty($gateway)) {
             throw new Exception("There is no valid gateway for this transaction. Gateway Class: {$gateway}");
         }
+        $amount = $db->getTransactionAmount($request[self::PAY_ID]);
         try {
-            $ipg = new $gateway();
+            $ipg = new $gateway($amount);
         } catch (Exception $e) {
             throw new Exception("There is no valid gateway for this transaction. Gateway Class: {$gateway}");
         }
         $instance = new self($ipg, $db);
 
-        $instance->dbMan = $db;
+        $instance->dbMan  = $db;
+        $instance->amount = $amount;
 
         return $instance;
     }
@@ -144,6 +147,7 @@ class IPGManager {
         $payId = $request[self::PAY_ID];
         $vRes  = new ValidationResponse();
         $vRes->setValid(FALSE);
+        $vRes->setAmount($this->amount);
         if (empty($payId)) {
             /*
              * If there is no PaymentId present in the $_REQUEST, something mysterious happened !!!
