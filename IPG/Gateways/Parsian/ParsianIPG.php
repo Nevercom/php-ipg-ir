@@ -23,7 +23,15 @@ class ParsianIPG extends AbstractIPG {
         34 => "شماره تراکنش فروشنده صحیح نمی باشد"
     ];
 
-    public function __construct() {
+    /**
+     * ParsianIPG constructor.
+     *
+     * @param array $config
+     */
+    public function __construct($config = array()) {
+        if (isset($config['amount'])) {
+            $this->amount = $config['amount'];
+        }
         $this->service = new EShopService("https://pec.shaparak.ir/pecpaymentgateway/EShopService.asmx?wsdl");
     }
 
