@@ -66,8 +66,13 @@ class MellatIPG extends AbstractIPG {
 
     /**
      * MellatIPG constructor.
+     *
+     * @param array $config
      */
-    public function __construct() {
+    public function __construct($config = array()) {
+        if (isset($config['amount'])) {
+            $this->amount = $config['amount'];
+        }
         $this->service = new MellatPaymentGatewayService("https://pgws.bpm.bankmellat.ir/pgwchannel/services/pgw?wsdl");
     }
 
@@ -171,7 +176,7 @@ class MellatIPG extends AbstractIPG {
             $result         = new bpInquiryRequestResponse();
             $result->return = -1;
         }
-        $status = $result->return === '0'|| $result->return === 0;
+        $status = $result->return === '0' || $result->return === 0;
 
         $this->errorCode = $status ? (int)$result->return : -1;
 
