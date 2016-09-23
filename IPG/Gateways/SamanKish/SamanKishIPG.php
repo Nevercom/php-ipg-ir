@@ -32,7 +32,22 @@ class SamanKishIPG extends AbstractIPG {
         -15 => "مبلغ برگشتی به صورت اعشاری داده شده است",
         -16 => "خطای داخلی سیستم",
         -17 => "برگشت زدن جزئی از تراکنش مجاز نمی ‌باشد",
-        -18 => "IP آدرس فروشنده نامعتبر است"
+        -18 => "IP آدرس فروشنده نامعتبر است",
+        'Canceled By User'  => "تراکنش توسط خر یدار کنسل شده است.",
+        'Invalid Amount'  => "مبلخ سند برگشتی، از مبلخ تراکنش اصلی بیشتر است.",
+        'Invalid Transaction'  => "رمز کارت )PIN )3 مرتبه اشتباه وارد شده است در نتیجه کارت غیر فعال خواهد شد.",
+        'Number Card Invalid'  => "شماره کارت اشتباه است.",
+        'Issuer Such No'  => " چنین صادر کننده کارتی وجود ندارد.",
+        'Expired Card Pick Up'  => "",
+        'Allowable PIN Tries Exceeded Pick Up'  => "",
+        'Incorrect PIN'  => "خریدار رمز کارت ) PIN )را اشتباه وارد کرده است.",
+        'Limit Amount Withdrawal Exceeds'  => " مبلخ بیش از سقف برداشت می باشد.",
+        'Transaction Cannot Be Completed'  => "تراکنش Authorize شده است )شماره PIN و PAN درست هستند( ولی امکان سند خوردن وجود ندارد.",
+        'Response Received Too Late'  => "تراکنش در شبکه بانکی Timeout خورده است",
+        'Suspected Fraud Pick Up'  => "خریدار  فیلد CVV2 و یا فیلد ExpDate را اشتباه وارد کرده است )یا اصال وارد نکرده است(. ",
+        'No Sufficient Funds'  => " موجودی حساب خریدار، کافی نیست",
+        ' Slm Down Issuer'  => "سیستم بانک صادر کننده کارت خریتدار، در وضعیت عملیاتی نیست.",
+        'TME Error'  => "کلیه خطاهای دیگر بانکی باعت ایجاد چنین خطایی می گردد"
     ];
 
     public function __construct($config = array()) {
@@ -100,12 +115,12 @@ class SamanKishIPG extends AbstractIPG {
     }
 
     public function verify($transactionId, $referenceId) {
-       
+
 
         try {
             $result = $this->service->verifyTransaction($referenceId,$this->MID);
         } catch (Exception $e) {
-           
+
             $result= -10000;
         }
         $this->errorCode = $result;
@@ -164,8 +179,7 @@ class SamanKishIPG extends AbstractIPG {
     }
 
     public function getErrorMessage() {
-        return $this->errorCode === 0 || $this->errorCode > 0 ?
-            $this->errorMessagesList[$this->errorCode] : "خطای ناشناخته";
+        return $this->errorMessagesList[$this->errorCode];
     }
 
     public function getCanonicalName() {
