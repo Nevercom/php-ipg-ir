@@ -35,9 +35,12 @@ class SamanKishIPG extends AbstractIPG {
         -18 => "IP آدرس فروشنده نامعتبر است"
     ];
 
-    public function __construct() {
-        $this->service = new PaymentIFBinding();
-        $this->tokenservice = new PaymentInitIFBinding();
+    public function __construct($config = array()) {
+        if (isset($config['amount'])) {
+            $this->amount = $config['amount'];
+        }
+        $this->service = new PaymentIFBinding("https://sep.shaparak.ir/payments/referencepayment.asmx?WSDL");
+        $this->tokenservice = new PaymentInitIFBinding("https://sep.shaparak.ir/Payments/InitPayment.asmx?wsdl");
     }
 
     /**
@@ -73,7 +76,7 @@ class SamanKishIPG extends AbstractIPG {
         $payment = new PaymentResponse();
         $payment->setTransactionId($transactionId);
         $this->errorCode = $result;
-        if ($result > 0) {
+        if (strlen($result) > 8) {
             // Successful
             $payment->setIsSuccessful(TRUE);
             $payment->setData(array( "Token"=>$result, "RedirectURL"=>$callbackUrl));

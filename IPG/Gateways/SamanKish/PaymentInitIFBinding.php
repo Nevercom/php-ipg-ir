@@ -11,7 +11,7 @@
 
 namespace IPG\Gateways\SamanKish;
 
-class PaymentInitIFBinding extends SoapClient {
+class PaymentInitIFBinding extends \SoapClient {
 
     private static $classmap = array(
     );
