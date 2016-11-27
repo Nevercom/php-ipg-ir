@@ -212,7 +212,7 @@ class MellatPaymentGatewayService extends \SoapClient {
         'bpRefundRequestResponse'               => 'bpRefundRequestResponse',
     );
 
-    public function MellatPaymentGatewayService($wsdl = "https://pgws.bpm.bankmellat.ir/pgwchannel/services/pgw?wsdl",
+    public function MellatPaymentGatewayService($wsdl = "https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl",
                                                 $options = array()) {
         foreach (self::$classmap as $key => $value) {
             if (!isset($options['classmap'][$key])) {
