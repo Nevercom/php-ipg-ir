@@ -73,7 +73,7 @@ class MellatIPG extends AbstractIPG {
         if (isset($config['amount'])) {
             $this->amount = $config['amount'];
         }
-        $this->service = new MellatPaymentGatewayService("https://pgws.bpm.bankmellat.ir/pgwchannel/services/pgw?wsdl");
+        $this->service = new MellatPaymentGatewayService("https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl");
     }
 
     public function startPayment($transactionId, $amount, $callbackUrl) {
@@ -109,7 +109,7 @@ class MellatIPG extends AbstractIPG {
             // OK
             $pResponse->setIsSuccessful(TRUE);
             $pResponse->setReferenceId($referenceId);
-            $pResponse->setTargetUrl("https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat");
+            $pResponse->setTargetUrl("https://bpm.shaparak.ir/pgwchannel/startpay.mellat");
             $pResponse->setData(["RefId" => $referenceId]);
         } else {
             $pResponse->setIsSuccessful(FALSE);
