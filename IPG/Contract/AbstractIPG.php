@@ -8,7 +8,8 @@ use IPG\Models\ValidationResponse;
 use IPG\Models\VerificationResponse;
 
 abstract class AbstractIPG {
-     protected $amount;
+    protected $amount;
+
     /**
      * AbstractIPG constructor.
      *
@@ -40,10 +41,28 @@ abstract class AbstractIPG {
      */
     abstract public function verify($paymentId, $referenceId);
 
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return boolean
+     */
     abstract public function inquiry($paymentId, $referenceId);
 
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return boolean
+     */
     abstract public function settle($paymentId, $referenceId);
 
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return boolean
+     */
     abstract public function reversal($paymentId, $referenceId);
 
 
