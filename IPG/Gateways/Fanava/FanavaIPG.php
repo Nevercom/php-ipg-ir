@@ -116,7 +116,14 @@ class FanavaIPG extends AbstractIPG {
         $vReq->refNumList = $referenceId;
         $v->verifyRequest = $vReq;
 
-        $result        = $this->service->verifyTransaction($v);
+        try {
+            $result = $this->service->verifyTransaction($v);
+        } catch (Exception $e) {
+            $result                                                   = new verifyTransactionResponse();
+            $result->return                                           = new verifyResponse();
+            $result->return->verifyResponseResults                    = new verifyResponseResult();
+            $result->return->verifyResponseResults->verificationError = "ERROR";
+        }
         $isSuccessfull = !isset($result->return->verifyResponseResults->verificationError)
                          || empty($result->return->verifyResponseResults->verificationError);
 
@@ -136,6 +143,7 @@ class FanavaIPG extends AbstractIPG {
      */
     public function inquiry($paymentId, $referenceId) {
         $v = $this->verify($paymentId, $referenceId);
+
         return $v->isSuccessful();
     }
 
@@ -150,16 +158,21 @@ class FanavaIPG extends AbstractIPG {
     }
 
     public function reversal($paymentId, $referenceId) {
-        $r = new reverseTransaction();
+        $r    = new reverseTransaction();
         $rReq = new reverseRequest();
 
-        $rReq->amount = $this->amount;
-        $rReq->mainTransactionRefNum = $referenceId;
+        $rReq->amount                   = $this->amount;
+        $rReq->mainTransactionRefNum    = $referenceId;
         $rReq->reverseTransactionResNum = $paymentId;
 
-        $r->context = $this->getContext();
+        $r->context        = $this->getContext();
         $r->reverseRequest = $rReq;
-        $result = $this->service->reverseTransaction($r);
+        try {
+            $result = $this->service->reverseTransaction($r);
+        } catch (Exception $e) {
+            $result         = new reverseTransactionResponse();
+            $result->return = new reverseResponse();
+        }
 
         return !empty($result->return->refNum);
 
@@ -218,7 +231,7 @@ class FanavaIPG extends AbstractIPG {
 
             $this->sessionId = $result->return;
         } catch (Exception $e) {
-            return NULL;
+            $this->sessionId = NULL;
         }
     }
 }
