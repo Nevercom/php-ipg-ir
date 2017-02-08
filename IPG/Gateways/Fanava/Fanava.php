@@ -1,95 +1,66 @@
 <?php
-/*
-*                        _oo0oo_
-*                       o8888888o
-*                       88" . "88
-*                       (| -_- |)
-*                       0\  =  /0
-*                     ___/`---'\___
-*                   .' \\|     |// '.
-*                  / \\|||  :  |||// \
-*                 / _||||| -:- |||||- \
-*                |   | \\\  -  /// |   |
-*                | \_|  ''\---/''  |_/ |
-*                \  .-\__  '-'  ___/-. /
-*              ___'. .'  /--.--\  `. .'___
-*           ."" '<  `.___\_<|>_/___.' >' "".
-*          | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-*          \  \ `_.   \_ __\ /__ _/   .-` /  /
-*      =====`-.____`.___ \_____/___.-`___.-'=====
-*                        `=---='
-* 
-* 
-*      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 
-*                Buddha Bless This Code
-*                    To be Bug Free
-* 
-*  Created by nevercom at 2/6/17 5:29 PM
-*/
-
 namespace IPG\Gateways\Fanava;
 
 use SoapClient;
 
 class verifyTransaction {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  verifyRequest */
-    var $verifyRequest;//verifyRequest
+    public $verifyRequest;
 }
 
 class wsContext {
     /** @var  data */
-    var $data;//data
+    public $data;
 }
 
 class data {
     /** @var  entry */
-    var $entry;//entry
+    public $entry;
 }
 
 class entry {
     /** @var  string */
-    var $key;//string
+    public $key;
     /** @var  string */
-    var $value;//string
+    public $value;
 }
 
 class verifyRequest {
     /** @var  string */
-    var $refNumList;//string
+    public $refNumList;
 }
 
 class verifyTransactionResponse {
     /** @var  verifyResponse */
-    var $return;//verifyResponse
+    public $return;
 }
 
 class verifyResponse {
     /** @var  verifyResponseResult */
-    var $verifyResponseResults;//verifyResponseResult
+    public $verifyResponseResults;
 }
 
 class verifyResponseResult {
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $refNum;//string
-
-    var $verificationError;//verificationError
+    public $refNum;
+    /** @var  verificationError */
+    public $verificationError;
 }
 
 class WsClientAddressException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class throwable {
     /** @var  stackTraceElement */
-    var $stackTrace;//stackTraceElement
+    public $stackTrace;
 }
 
 class stackTraceElement {
@@ -97,187 +68,187 @@ class stackTraceElement {
 
 class WsInvalidSessionException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class getPurchaseParamsToSign {
     /** @var  string */
-    var $resNum;//string
+    public $resNum;
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $redirectUrl;//string
+    public $redirectUrl;
 }
 
 class getPurchaseParamsToSignResponse {
     /** @var  dataToSignResponse */
-    var $return;//dataToSignResponse
+    public $return;
 }
 
 class dataToSignResponse {
     /** @var  string */
-    var $dataToSign;//string
+    public $dataToSign;
     /** @var  string */
-    var $uniqueId;//string
+    public $uniqueId;
 }
 
 class secureVerifyTransaction {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  secureVerifyRequest */
-    var $secureVerifyRequest;//secureVerifyRequest
+    public $secureVerifyRequest;
 }
 
 class secureVerifyRequest {
     /** @var  secureVerifyInfo */
-    var $secureVerifyInfoList;//secureVerifyInfo
+    public $secureVerifyInfoList;
 }
 
 class secureVerifyInfo {
     /** @var  string */
-    var $refNum;//string
+    public $refNum;
     /** @var  string */
-
-    var $resNum;//string
+    public $resNum;
 }
 
 class secureVerifyTransactionResponse {
     /** @var  secureVerifyResponse */
-    var $return;//secureVerifyResponse
+    public $return;
 }
 
 class secureVerifyResponse {
     /** @var  secureVerifyResponseResult */
-    var $secureVerifyResponseResults;//secureVerifyResponseResult
+    public $secureVerifyResponseResults;
 }
 
 class secureVerifyResponseResult {
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $refNum;//string
+    public $refNum;
     /** @var  string */
-    var $resNum;//string
-    var $verificationError;//verificationError
+    public $resNum;
+    /** @var  verificationError */
+    public $verificationError;
 }
 
 class generateSignedPurchaseToken {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  string */
-    var $signature;//string
+    public $signature;
     /** @var  string */
-    var $uniqueId;//string
+    public $uniqueId;
     /** @var  string */
-    var $resNum;//string
+    public $resNum;
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $redirectUrl;//string
+    public $redirectUrl;
 }
 
 class generateSignedPurchaseTokenResponse {
     /** @var  tokenInfo */
-    var $return;//tokenInfo
+    public $return;
 }
 
 class tokenInfo {
     /** @var  string */
-    var $expirationDate;//dateTime
+    public $expirationDate;
     /** @var  string */
-    var $token;//string
+    public $token;
 }
 
 class WsTransactionNotFoundException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class tokenPurchaseVerifyTransaction {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  tokenPurchaseVerificationRequest */
-    var $purchaseVerificationDto;//tokenPurchaseVerificationRequest
+    public $purchaseVerificationDto;
 }
 
 class tokenPurchaseVerificationRequest {
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $referenceNumber;//string
+    public $referenceNumber;
     /** @var  string */
-    var $token;//string
+    public $token;
 }
 
 class tokenPurchaseVerifyTransactionResponse {
     /** @var  tokenPurchaseVerificationResponse */
-    var $return;//tokenPurchaseVerificationResponse
+    public $return;
 }
 
 class tokenPurchaseVerificationResponse {
     /** @var  integer */
-    var $resultTotalAmount;//decimal
+    public $resultTotalAmount;
 }
 
 class WsInvalidAmountException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsInvalidTokenException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsPaymentVerificationException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class login {
-    /** @var loginRequest  */
-    var $loginRequest;//loginRequest
+    /** @var  loginRequest */
+    public $loginRequest;
 }
 
 class loginRequest {
     /** @var  string */
-    var $password;//string
+    public $password;
     /** @var  string */
-    var $username;//string
+    public $username;
 }
 
 class loginResponse {
     /** @var  string */
-    var $return;//string
+    public $return;
 }
 
 class WsBlockUserException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsInvalidCredentialException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class logout {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
 }
 
 class logoutResponse {
@@ -285,332 +256,388 @@ class logoutResponse {
 
 class reportTransaction {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  reportRequest */
-    var $reportRequest;//reportRequest
+    public $reportRequest;
 }
 
 class reportRequest {
     /** @var  integer */
-    var $amountMax;//decimal
+    public $amountMax;
     /** @var  integer */
-    var $amountMin;//decimal
+    public $amountMin;
     /** @var  string */
-    var $billId;//string
-
-    var $billTypes;//billType
+    public $billId;
+    /** @var  billType */
+    public $billTypes;
     /** @var  string */
-    var $customerRefNum;//string
+    public $customerRefNum;
     /** @var  integer */
-    var $length;//short
+    public $length;
     /** @var  integer */
-    var $offset;//long
+    public $offset;
     /** @var  boolean */
-    var $onlyReversed;//boolean
-
-    var $orderField;//orderField
-    var $orderType;//orderType
+    public $onlyReversed;
+    /** @var  orderField */
+    public $orderField;
+    /** @var  orderType */
+    public $orderType;
     /** @var  string */
-    var $paymentId;//string
+    public $paymentId;
     /** @var  string */
-    var $refNum;//string
+    public $refNum;
     /** @var  string */
-    var $resNum;//string
+    public $resNum;
     /** @var  string */
-    var $timeMax;//dateTime
+    public $timeMax;
     /** @var  string */
-    var $timeMin;//dateTime
-    var $transactionState;//transactionState
-    var $transactionType;//transactionType
+    public $timeMin;
+    /** @var  transactionState */
+    public $transactionState;
+    /** @var  transactionType */
+    public $transactionType;
 }
 
 class reportTransactionResponse {
     /** @var  reportResponse */
-    var $return;//reportResponse
+    public $return;
 }
 
 class reportResponse {
     /** @var  reportResponseResult */
-    var $reportResponseResults;//reportResponseResult
+    public $reportResponseResults;
     /** @var  integer */
-    var $totalRecord;//long
+    public $totalRecord;
 }
 
 class reportResponseResult {
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $billId;//string
-    var $billType;//billType
+    public $billId;
+    /** @var  billType */
+    public $billType;
     /** @var  string */
-    var $customerRefNum;//string
+    public $customerRefNum;
     /** @var  string */
-    var $errorCause;//string
+    public $errorCause;
     /** @var  integer */
-    var $id;//long
+    public $id;
     /** @var  string */
-    var $paymentId;//string
+    public $paymentId;
     /** @var  string */
-    var $refNum;//string
+    public $refNum;
     /** @var  string */
-    var $resNum;//string
+    public $resNum;
     /** @var  string */
-    var $time;//dateTime
-    var $transactionState;//transactionState
-    var $transactionType;//transactionType
+    public $time;
+    /** @var  transactionState */
+    public $transactionState;
+    /** @var  transactionType */
+    public $transactionType;
 }
 
 class reverseTransaction {
     /** @var  wsContext */
-    var $context;//wsContext
+    public $context;
     /** @var  reverseRequest */
-    var $reverseRequest;//reverseRequest
+    public $reverseRequest;
 }
 
 class reverseRequest {
     /** @var  integer */
-    var $amount;//decimal
+    public $amount;
     /** @var  string */
-    var $mainTransactionRefNum;//string
+    public $mainTransactionRefNum;
     /** @var  string */
-    var $reverseTransactionResNum;//string
+    public $reverseTransactionResNum;
 }
 
 class reverseTransactionResponse {
     /** @var  reverseResponse */
-    var $return;//reverseResponse
+    public $return;
 }
 
 class reverseResponse {
     /** @var  string */
-    var $refNum;//string
+    public $refNum;
 }
 
 class WebServiceException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsAmountConstraintViolationException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsAuthenticationException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsInsufficientFundsException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsPaymentReverseException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
 class WsSystemMalFunctionException {
     /** @var  string */
-    var $message;//string
+    public $message;
     /** @var  throwable */
-    var $suppressed;//throwable
+    public $suppressed;
 }
 
-class Fanava {
-    var $soapClient;
+class verificationError {
+}
 
-    private static $classmap = array('verifyTransaction'                      => 'verifyTransaction'
-                                     , 'wsContext'                            => 'wsContext'
-                                     , 'data'                                 => 'data'
-                                     , 'entry'                                => 'entry'
-                                     , 'verifyRequest'                        => 'verifyRequest'
-                                     , 'verifyTransactionResponse'            => 'verifyTransactionResponse'
-                                     , 'verifyResponse'                       => 'verifyResponse'
-                                     , 'verifyResponseResult'                 => 'verifyResponseResult'
-                                     , 'WsClientAddressException'             => 'WsClientAddressException'
-                                     , 'throwable'                            => 'throwable'
-                                     , 'stackTraceElement'                    => 'stackTraceElement'
-                                     , 'WsInvalidSessionException'            => 'WsInvalidSessionException'
-                                     , 'getPurchaseParamsToSign'              => 'getPurchaseParamsToSign'
-                                     , 'getPurchaseParamsToSignResponse'      => 'getPurchaseParamsToSignResponse'
-                                     , 'dataToSignResponse'                   => 'dataToSignResponse'
-                                     , 'secureVerifyTransaction'              => 'secureVerifyTransaction'
-                                     , 'secureVerifyRequest'                  => 'secureVerifyRequest'
-                                     , 'secureVerifyInfo'                     => 'secureVerifyInfo'
-                                     , 'secureVerifyTransactionResponse'      => 'secureVerifyTransactionResponse'
-                                     , 'secureVerifyResponse'                 => 'secureVerifyResponse'
-                                     , 'secureVerifyResponseResult'           => 'secureVerifyResponseResult'
-                                     , 'generateSignedPurchaseToken'          => 'generateSignedPurchaseToken'
-                                     , 'generateSignedPurchaseTokenResponse'  => 'generateSignedPurchaseTokenResponse'
-                                     , 'tokenInfo'                            => 'tokenInfo'
-                                     , 'WsTransactionNotFoundException'       => 'WsTransactionNotFoundException'
-                                     , 'tokenPurchaseVerifyTransaction'       => 'tokenPurchaseVerifyTransaction'
-                                     , 'tokenPurchaseVerificationRequest'     => 'tokenPurchaseVerificationRequest'
-                                     ,
-                                     'tokenPurchaseVerifyTransactionResponse' => 'tokenPurchaseVerifyTransactionResponse'
-                                     , 'tokenPurchaseVerificationResponse'    => 'tokenPurchaseVerificationResponse'
-                                     , 'WsInvalidAmountException'             => 'WsInvalidAmountException'
-                                     , 'WsInvalidTokenException'              => 'WsInvalidTokenException'
-                                     , 'WsPaymentVerificationException'       => 'WsPaymentVerificationException'
-                                     , 'login'                                => 'login'
-                                     , 'loginRequest'                         => 'loginRequest'
-                                     , 'loginResponse'                        => 'loginResponse'
-                                     , 'WsBlockUserException'                 => 'WsBlockUserException'
-                                     , 'WsInvalidCredentialException'         => 'WsInvalidCredentialException'
-                                     , 'logout'                               => 'logout'
-                                     , 'logoutResponse'                       => 'logoutResponse'
-                                     , 'reportTransaction'                    => 'reportTransaction'
-                                     , 'reportRequest'                        => 'reportRequest'
-                                     , 'reportTransactionResponse'            => 'reportTransactionResponse'
-                                     , 'reportResponse'                       => 'reportResponse'
-                                     , 'reportResponseResult'                 => 'reportResponseResult'
-                                     , 'reverseTransaction'                   => 'reverseTransaction'
-                                     , 'reverseRequest'                       => 'reverseRequest'
-                                     , 'reverseTransactionResponse'           => 'reverseTransactionResponse'
-                                     , 'reverseResponse'                      => 'reverseResponse'
-                                     , 'WebServiceException'                  => 'WebServiceException'
-                                     ,
-                                     'WsAmountConstraintViolationException'   => 'WsAmountConstraintViolationException'
-                                     , 'WsAuthenticationException'            => 'WsAuthenticationException'
-                                     , 'WsInsufficientFundsException'         => 'WsInsufficientFundsException'
-                                     , 'WsPaymentReverseException'            => 'WsPaymentReverseException'
-                                     , 'WsSystemMalFunctionException'         => 'WsSystemMalFunctionException'
+class billType {
+}
 
+class orderField {
+}
+
+class orderType {
+}
+
+class transactionState {
+}
+
+class transactionType {
+}
+
+
+/**
+ * PaymentWebServiceService class
+ *
+ *
+ *
+ * @author    Nevercom <nevercom@gmail.com>
+ */
+class Fanava extends SoapClient {
+
+    private static $classmap = array(
+        'verifyTransaction'                      => 'verifyTransaction',
+        'wsContext'                              => 'wsContext',
+        'data'                                   => 'data',
+        'entry'                                  => 'entry',
+        'verifyRequest'                          => 'verifyRequest',
+        'verifyTransactionResponse'              => 'verifyTransactionResponse',
+        'verifyResponse'                         => 'verifyResponse',
+        'verifyResponseResult'                   => 'verifyResponseResult',
+        'WsClientAddressException'               => 'WsClientAddressException',
+        'throwable'                              => 'throwable',
+        'stackTraceElement'                      => 'stackTraceElement',
+        'WsInvalidSessionException'              => 'WsInvalidSessionException',
+        'getPurchaseParamsToSign'                => 'getPurchaseParamsToSign',
+        'getPurchaseParamsToSignResponse'        => 'getPurchaseParamsToSignResponse',
+        'dataToSignResponse'                     => 'dataToSignResponse',
+        'secureVerifyTransaction'                => 'secureVerifyTransaction',
+        'secureVerifyRequest'                    => 'secureVerifyRequest',
+        'secureVerifyInfo'                       => 'secureVerifyInfo',
+        'secureVerifyTransactionResponse'        => 'secureVerifyTransactionResponse',
+        'secureVerifyResponse'                   => 'secureVerifyResponse',
+        'secureVerifyResponseResult'             => 'secureVerifyResponseResult',
+        'generateSignedPurchaseToken'            => 'generateSignedPurchaseToken',
+        'generateSignedPurchaseTokenResponse'    => 'generateSignedPurchaseTokenResponse',
+        'tokenInfo'                              => 'tokenInfo',
+        'WsTransactionNotFoundException'         => 'WsTransactionNotFoundException',
+        'tokenPurchaseVerifyTransaction'         => 'tokenPurchaseVerifyTransaction',
+        'tokenPurchaseVerificationRequest'       => 'tokenPurchaseVerificationRequest',
+        'tokenPurchaseVerifyTransactionResponse' => 'tokenPurchaseVerifyTransactionResponse',
+        'tokenPurchaseVerificationResponse'      => 'tokenPurchaseVerificationResponse',
+        'WsInvalidAmountException'               => 'WsInvalidAmountException',
+        'WsInvalidTokenException'                => 'WsInvalidTokenException',
+        'WsPaymentVerificationException'         => 'WsPaymentVerificationException',
+        'login'                                  => 'login',
+        'loginRequest'                           => 'loginRequest',
+        'loginResponse'                          => 'loginResponse',
+        'WsBlockUserException'                   => 'WsBlockUserException',
+        'WsInvalidCredentialException'           => 'WsInvalidCredentialException',
+        'logout'                                 => 'logout',
+        'logoutResponse'                         => 'logoutResponse',
+        'reportTransaction'                      => 'reportTransaction',
+        'reportRequest'                          => 'reportRequest',
+        'reportTransactionResponse'              => 'reportTransactionResponse',
+        'reportResponse'                         => 'reportResponse',
+        'reportResponseResult'                   => 'reportResponseResult',
+        'reverseTransaction'                     => 'reverseTransaction',
+        'reverseRequest'                         => 'reverseRequest',
+        'reverseTransactionResponse'             => 'reverseTransactionResponse',
+        'reverseResponse'                        => 'reverseResponse',
+        'WebServiceException'                    => 'WebServiceException',
+        'WsAmountConstraintViolationException'   => 'WsAmountConstraintViolationException',
+        'WsAuthenticationException'              => 'WsAuthenticationException',
+        'WsInsufficientFundsException'           => 'WsInsufficientFundsException',
+        'WsPaymentReverseException'              => 'WsPaymentReverseException',
+        'WsSystemMalFunctionException'           => 'WsSystemMalFunctionException',
+        'verificationError'                      => 'verificationError',
+        'billType'                               => 'billType',
+        'orderField'                             => 'orderField',
+        'orderType'                              => 'orderType',
+        'transactionState'                       => 'transactionState',
+        'transactionType'                        => 'transactionType',
     );
 
-    function __construct($url = 'https://fanava.shaparak.ir/ref-payment/jax/merchantAuth?wsdl') {
-        $this->soapClient =
-            new SoapClient($url, array("classmap" => self::$classmap, "trace" => TRUE, "exceptions" => TRUE));
+    public function Fanava($wsdl = "https://fanava.shaparak.ir/ref-payment/jax/merchantAuth?wsdl", $options = array()) {
+        foreach (self::$classmap as $key => $value) {
+            if (!isset($options['classmap'][$key])) {
+                $options['classmap'][$key] = $value;
+            }
+        }
+        parent::__construct($wsdl, $options);
     }
 
     /**
-     * @param getPurchaseParamsToSign $getPurchaseParamsToSign
+     *
+     *
+     * @param getPurchaseParamsToSign $parameters
      *
      * @return getPurchaseParamsToSignResponse
      */
-    function getPurchaseParamsToSign(getPurchaseParamsToSign $getPurchaseParamsToSign) {
-
-        $getPurchaseParamsToSignResponse = $this->soapClient->getPurchaseParamsToSign($getPurchaseParamsToSign);
-
-        return $getPurchaseParamsToSignResponse;
-
+    public function getPurchaseParamsToSign(getPurchaseParamsToSign $parameters) {
+        return $this->__soapCall('getPurchaseParamsToSign', array($parameters), array(
+                                                              'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                              'soapaction' => ''
+                                                          )
+        );
     }
 
     /**
-     * @param generateSignedPurchaseToken $generateSignedPurchaseToken
+     *
+     *
+     * @param generateSignedPurchaseToken $parameters
      *
      * @return generateSignedPurchaseTokenResponse
      */
-    function generateSignedPurchaseToken(generateSignedPurchaseToken $generateSignedPurchaseToken) {
-
-        $generateSignedPurchaseTokenResponse =
-            $this->soapClient->generateSignedPurchaseToken($generateSignedPurchaseToken);
-
-        return $generateSignedPurchaseTokenResponse;
-
+    public function generateSignedPurchaseToken(generateSignedPurchaseToken $parameters) {
+        return $this->__soapCall('generateSignedPurchaseToken', array($parameters), array(
+                                                                  'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                                  'soapaction' => ''
+                                                              )
+        );
     }
 
     /**
-     * @param tokenPurchaseVerifyTransaction $tokenPurchaseVerifyTransaction
+     *
+     *
+     * @param tokenPurchaseVerifyTransaction $parameters
      *
      * @return tokenPurchaseVerifyTransactionResponse
      */
-    function tokenPurchaseVerifyTransaction(tokenPurchaseVerifyTransaction $tokenPurchaseVerifyTransaction) {
-
-        $tokenPurchaseVerifyTransactionResponse =
-            $this->soapClient->tokenPurchaseVerifyTransaction($tokenPurchaseVerifyTransaction);
-
-        return $tokenPurchaseVerifyTransactionResponse;
-
+    public function tokenPurchaseVerifyTransaction(tokenPurchaseVerifyTransaction $parameters) {
+        return $this->__soapCall('tokenPurchaseVerifyTransaction', array($parameters), array(
+                                                                     'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                                     'soapaction' => ''
+                                                                 )
+        );
     }
 
     /**
-     * @param verifyTransaction $verifyTransaction
+     *
+     *
+     * @param verifyTransaction $parameters
      *
      * @return verifyTransactionResponse
      */
-    function verifyTransaction(verifyTransaction $verifyTransaction) {
-
-        $verifyTransactionResponse = $this->soapClient->verifyTransaction($verifyTransaction);
-
-        return $verifyTransactionResponse;
-
+    public function verifyTransaction(verifyTransaction $parameters) {
+        return $this->__soapCall('verifyTransaction', array($parameters), array(
+                                                        'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                        'soapaction' => ''
+                                                    )
+        );
     }
 
     /**
-     * @param secureVerifyTransaction $secureVerifyTransaction
+     *
+     *
+     * @param secureVerifyTransaction $parameters
      *
      * @return secureVerifyTransactionResponse
      */
-    function secureVerifyTransaction(secureVerifyTransaction $secureVerifyTransaction) {
-
-        $secureVerifyTransactionResponse = $this->soapClient->secureVerifyTransaction($secureVerifyTransaction);
-
-        return $secureVerifyTransactionResponse;
-
+    public function secureVerifyTransaction(secureVerifyTransaction $parameters) {
+        return $this->__soapCall('secureVerifyTransaction', array($parameters), array(
+                                                              'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                              'soapaction' => ''
+                                                          )
+        );
     }
 
     /**
-     * @param reverseTransaction $reverseTransaction
+     *
+     *
+     * @param reverseTransaction $parameters
      *
      * @return reverseTransactionResponse
      */
-    function reverseTransaction(reverseTransaction $reverseTransaction) {
-
-        $reverseTransactionResponse = $this->soapClient->reverseTransaction($reverseTransaction);
-
-        return $reverseTransactionResponse;
-
+    public function reverseTransaction(reverseTransaction $parameters) {
+        return $this->__soapCall('reverseTransaction', array($parameters), array(
+                                                         'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                         'soapaction' => ''
+                                                     )
+        );
     }
 
     /**
-     * @param reportTransaction $reportTransaction
+     *
+     *
+     * @param reportTransaction $parameters
      *
      * @return reportTransactionResponse
      */
-    function reportTransaction(reportTransaction $reportTransaction) {
-
-        $reportTransactionResponse = $this->soapClient->reportTransaction($reportTransaction);
-
-        return $reportTransactionResponse;
-
+    public function reportTransaction(reportTransaction $parameters) {
+        return $this->__soapCall('reportTransaction', array($parameters), array(
+                                                        'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                                        'soapaction' => ''
+                                                    )
+        );
     }
 
     /**
-     * @param login $login
+     *
+     *
+     * @param login $parameters
      *
      * @return loginResponse
      */
-    function login(login $login) {
-
-        $loginResponse = $this->soapClient->login($login);
-
-        return $loginResponse;
-
+    public function login(login $parameters) {
+        return $this->__soapCall('login', array($parameters), array(
+                                            'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                            'soapaction' => ''
+                                        )
+        );
     }
 
     /**
-     * @param logout $logout
+     *
+     *
+     * @param logout $parameters
      *
      * @return logoutResponse
      */
-    function logout(logout $logout) {
-
-        $logoutResponse = $this->soapClient->logout($logout);
-
-        return $logoutResponse;
-
+    public function logout(logout $parameters) {
+        return $this->__soapCall('logout', array($parameters), array(
+                                             'uri'        => 'http://paymentService.merchant.webservice.epayment.modern.tosan.com/',
+                                             'soapaction' => ''
+                                         )
+        );
     }
+
 }
