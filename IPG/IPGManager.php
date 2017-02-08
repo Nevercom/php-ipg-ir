@@ -35,6 +35,7 @@ use IPG\Contract\AbstractIPG;
 use IPG\Contract\AbstractIPGDatabaseManager;
 use IPG\Models\PaymentResponse;
 use IPG\Models\ValidationResponse;
+use IPG\Models\VerificationResponse;
 
 class IPGManager {
     const PAY_ID = "IPGPaymentId";
@@ -172,7 +173,11 @@ class IPGManager {
         // each method call is logged
         $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\isPaymentValid", $request);
         // query the Gateway to check if this payment is valid in their eyes
-        $response = $this->ipg->isPaymentValid($request);
+        try {
+            $response = $this->ipg->isPaymentValid($request);
+        } catch (Exception $e) {
+            $response = new ValidationResponse();
+        }
         // we need this "Referenece ID" for further API calls, such as "verify"
         $this->referenceId = $response->getReferenceId();
         // Again, each method response is logged
@@ -212,7 +217,11 @@ class IPGManager {
                                                            "referenceId" => $referenceId
                                                        ]);
 
-        $verificationResponse = $this->ipg->verify($payId, $referenceId);
+        try {
+            $verificationResponse = $this->ipg->verify($payId, $referenceId);
+        } catch (Exception $e) {
+            $verificationResponse = new VerificationResponse();
+        }
 
         $this->dbMan->logMethodResponse($logId, [
             "isSuccessful"  => $verificationResponse->isSuccessful(),
@@ -220,9 +229,12 @@ class IPGManager {
             "InvoiceNumber" => $verificationResponse->getInvoiceNumber()
         ], $this->ipg->getErrorCode());
 
+
         $status = $verificationResponse->isSuccessful();
         if ($status) {
+
             $this->dbMan->updateTransaction($payId, $referenceId, AbstractIPGDatabaseManager::VERIFIED);
+
         }
 
         return $status;
@@ -243,7 +255,11 @@ class IPGManager {
                                                            "referenceId" => $referenceId
                                                        ]);
 
-        $res = $this->ipg->inquiry($payId, $referenceId);
+        try {
+            $res = $this->ipg->inquiry($payId, $referenceId);
+        } catch (Exception $e) {
+            $res = FALSE;
+        }
 
         $this->dbMan->logMethodResponse($logId, [
             "isSuccessful" => $res
@@ -270,7 +286,11 @@ class IPGManager {
                                                            "referenceId" => $referenceId
                                                        ]);
 
-        $res = $this->ipg->settle($payId, $referenceId);
+        try {
+            $res = $this->ipg->settle($payId, $referenceId);
+        } catch (Exception $e) {
+            $res = FALSE;
+        }
 
         $this->dbMan->logMethodResponse($logId, [
             "isSuccessful" => $res
@@ -297,7 +317,11 @@ class IPGManager {
                                                            "referenceId" => $referenceId
                                                        ]);
 
-        $res = $this->ipg->reversal($payId, $referenceId);
+        try {
+            $res = $this->ipg->reversal($payId, $referenceId);
+        } catch (Exception $e) {
+            $res = FALSE;
+        }
 
         $this->dbMan->logMethodResponse($logId, [
             "isSuccessful" => $res
