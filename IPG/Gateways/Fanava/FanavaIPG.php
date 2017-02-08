@@ -31,6 +31,7 @@
 namespace IPG\Gateways\Fanava;
 
 
+use Exception;
 use IPG\Contract\AbstractIPG;
 use IPG\Models\PaymentResponse;
 use IPG\Models\ValidationResponse;
@@ -70,7 +71,7 @@ class FanavaIPG extends AbstractIPG {
         $response->setTargetUrl('https://fanava.shaparak.ir/_ipgw_/payment/simple/');
         $response->setData(
             Array(
-                'amount'      => $this->amount,
+                'Amount'      => $amount,
                 'resNum'      => $paymentId,
                 'MID'         => $this->username,
                 'redirectURL' => $callbackUrl
@@ -112,28 +113,53 @@ class FanavaIPG extends AbstractIPG {
         $vReq->refNumList = $referenceId;
         $v->verifyRequest = $vReq;
 
-        $result = $this->service->verifyTransaction($v);
+        $result        = $this->service->verifyTransaction($v);
         $isSuccessfull = !isset($result->return->verifyResponseResults->verificationError)
                          || empty($result->return->verifyResponseResults->verificationError);
 
         $res = new VerificationResponse();
         $res->setSuccessful($isSuccessfull);
+
         return $res;
 
 
     }
 
-
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return bool
+     */
     public function inquiry($paymentId, $referenceId) {
-        // TODO: Implement inquiry() method.
+        $v = $this->verify($paymentId, $referenceId);
+        return $v->isSuccessful();
     }
 
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return bool
+     */
     public function settle($paymentId, $referenceId) {
-        // TODO: Implement settle() method.
+        return TRUE;
     }
 
     public function reversal($paymentId, $referenceId) {
-        // TODO: Implement reversal() method.
+        $r = new reverseTransaction();
+        $rReq = new reverseRequest();
+
+        $rReq->amount = $this->amount;
+        $rReq->mainTransactionRefNum = $referenceId;
+        $rReq->reverseTransactionResNum = $paymentId;
+
+        $r->context = $this->getContext();
+        $r->reverseRequest = $rReq;
+        $result = $this->service->reverseTransaction($r);
+
+        return !empty($result->return->refNum);
+
     }
 
     /**
@@ -177,15 +203,19 @@ class FanavaIPG extends AbstractIPG {
     }
 
     private function login() {
-        $loginParam   = new login();
-        $loginRequest = new loginRequest();
+        try {
+            $loginParam   = new login();
+            $loginRequest = new loginRequest();
 
-        $loginRequest->username   = $this->username;
-        $loginRequest->password   = $this->password;
-        $loginParam->loginRequest = $loginRequest;
+            $loginRequest->username   = $this->username;
+            $loginRequest->password   = $this->password;
+            $loginParam->loginRequest = $loginRequest;
 
-        $result = $this->service->login($loginParam);
+            $result = $this->service->login($loginParam);
 
-        $this->sessionId = $result->return;
+            $this->sessionId = $result->return;
+        } catch (Exception $e) {
+            return NULL;
+        }
     }
 }
