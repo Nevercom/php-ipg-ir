@@ -125,17 +125,21 @@ class IPGManager {
             "callbackUrl"   => $callbackUrl
         ]);
         // actula method call
-        $paymentResponse = $this->ipg->startPayment($payId, $amount, $callbackUrl);
-        // and in the end, we update the logged record in the database to include the method response
-        $this->dbMan->logMethodResponse($logId, [
-            "isIsSuccessful" => $paymentResponse->isIsSuccessful(),
-            "ReferenceId"    => $paymentResponse->getReferenceId(),
-            "TargetUrl"      => $paymentResponse->getTargetUrl(),
-            "Data"           => $paymentResponse->getData()
-        ], $this->ipg->getErrorCode()
-        );
+        try {
+            $paymentResponse = $this->ipg->startPayment($payId, $amount, $callbackUrl);
+            // and in the end, we update the logged record in the database to include the method response
+            $this->dbMan->logMethodResponse($logId, [
+                "isIsSuccessful" => $paymentResponse->isIsSuccessful(),
+                "ReferenceId"    => $paymentResponse->getReferenceId(),
+                "TargetUrl"      => $paymentResponse->getTargetUrl(),
+                "Data"           => $paymentResponse->getData()
+            ], $this->ipg->getErrorCode()
+            );
 
-        return $paymentResponse;
+            return $paymentResponse;
+        } catch (Exception $e) {
+            return new PaymentResponse();
+        }
     }
 
     /**
