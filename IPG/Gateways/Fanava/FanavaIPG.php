@@ -71,10 +71,13 @@ class FanavaIPG extends AbstractIPG {
         $response->setTargetUrl('https://fanava.shaparak.ir/_ipgw_/payment/simple/');
         $response->setData(
             Array(
-                'Amount'      => $amount,
-                'resNum'      => $paymentId,
-                'MID'         => $this->username,
-                'redirectURL' => $callbackUrl
+                'Amount'          => $amount,
+                'resNum'          => $paymentId,
+                'MID'             => $this->username,
+                'redirectURL'     => $callbackUrl,
+                'goodReferenceId' => '',
+                'merchantData'    => '',
+                'language'        => 'fa'
             )
         );
 
