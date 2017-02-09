@@ -85,6 +85,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
                               $this->TR_ID     => $transactionId,
                               $this->BANK_NAME => $bankName,
                               $this->AMOUNT    => $amount,
+                              $this->STATUS    => 0,
                               $this->CR_AT     => $this->db->now()
                           ]
         );
