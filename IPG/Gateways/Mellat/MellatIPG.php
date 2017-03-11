@@ -65,7 +65,7 @@ class MellatIPG extends AbstractIPG {
     ];
 
     /**
-     * MellatIPG constructor.
+     * see {@link http://www.behpardakht.com/resources/Vpos.html BehPardakht Mellat Website} for more info
      *
      * @param array $config
      */
