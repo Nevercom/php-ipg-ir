@@ -37,9 +37,15 @@ use IPG\Models\PaymentResponse;
 use IPG\Models\ValidationResponse;
 use IPG\Models\VerificationResponse;
 
+/**
+ * See {@link http://fanavacard.ir/index.aspx?fkeyid=&siteid=1&pageid=277 Fanava Website} for more info
+ * @package IPG\Gateways\Fanava
+ */
 class FanavaIPG extends AbstractIPG {
-    private   $service;
+    private $service;
+    /** @var string Username */
     protected $username;
+    /** @var  string Password */
     protected $password;
     private   $sessionId;
 
@@ -52,7 +58,7 @@ class FanavaIPG extends AbstractIPG {
         if (isset($config['amount'])) {
             $this->amount = $config['amount'];
         }
-        $this->service = new Fanava('https://fanava.shaparak.ir/ref-payment/jax/merchantAuth?wsdl');
+        $this->service = new Fanava('https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl');
 
 
     }
@@ -68,7 +74,7 @@ class FanavaIPG extends AbstractIPG {
         $response = new PaymentResponse();
         $response->setIsSuccessful(TRUE);
         $response->setTransactionId($paymentId);
-        $response->setTargetUrl('https://fanava.shaparak.ir/_ipgw_/payment/simple/');
+        $response->setTargetUrl('https://fcp.shaparak.ir/_ipgw_/payment/simple/');
         $response->setData(
             Array(
                 'Amount'          => $amount,
@@ -97,6 +103,8 @@ class FanavaIPG extends AbstractIPG {
 
         $res = new ValidationResponse();
         $res->setValid($isValid);
+        $res->setPayId($request['ResNum']);
+        $res->setAmount($request['transactionAmount']);
         $res->setReferenceId($request['RefNum']);
 
         return $res;

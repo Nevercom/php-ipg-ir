@@ -496,7 +496,7 @@ class Fanava extends SoapClient {
         'transactionType'                        => 'transactionType',
     );
 
-    public function Fanava($wsdl = "https://fanava.shaparak.ir/ref-payment/jax/merchantAuth?wsdl", $options = array()) {
+    public function Fanava($wsdl = "https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl", $options = array()) {
         foreach (self::$classmap as $key => $value) {
             if (!isset($options['classmap'][$key])) {
                 $options['classmap'][$key] = $value;
