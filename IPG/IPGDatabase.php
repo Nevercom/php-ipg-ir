@@ -60,7 +60,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
      * @param string $password MySQL password
      * @param string $db       Database name
      * @param string $host     MySQL database host address
-     * @param int    $port     MySQL database port
+     * @param string    $port     MySQL database port
      * @param string $charset  Character Set for the database connection
      *
      * @throws \Exception if any error occur in connecting to database, an exception is thrown explaining the issue.
