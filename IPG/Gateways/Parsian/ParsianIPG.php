@@ -24,7 +24,7 @@ class ParsianIPG extends AbstractIPG {
     ];
 
     /**
-     * ParsianIPG constructor.
+     * See {@link http://pec.ir/Portal/home/?1660/ Parsian Website} for more info.
      *
      * @param array $config
      */

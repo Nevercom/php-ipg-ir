@@ -9,6 +9,10 @@ use IPG\Models\PaymentResponse;
 use IPG\Models\ValidationResponse;
 use IPG\Models\VerificationResponse;
 
+/**
+ * See {@link https://www.sep.ir/%D8%AF%D8%B1%DB%8C%D8%A7%D9%81%D8%AA-%D8%AF%D8%B1%DA%AF%D8%A7%D9%87-%D8%A7%DB%8C%D9%86%D8%AA%D8%B1%D9%86%D8%AA%DB%8C- SamanKish Website} for more info
+ * @package IPG\Gateways\SamanKish
+ */
 class SamanKishIPG extends AbstractIPG {
     protected $MID;
     protected $PASS;
