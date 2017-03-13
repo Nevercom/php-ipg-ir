@@ -106,6 +106,9 @@ class FanavaIPG extends AbstractIPG {
         $res->setPayId($request['ResNum']);
         $res->setAmount($request['transactionAmount']);
         $res->setReferenceId($request['RefNum']);
+        if (isset($request['transactionAmount'])) {
+            $this->amount = $request['transactionAmount'];
+        }
 
         return $res;
     }
