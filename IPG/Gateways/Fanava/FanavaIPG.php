@@ -109,6 +109,7 @@ class FanavaIPG extends AbstractIPG {
         if (isset($request['transactionAmount'])) {
             $this->amount = $request['transactionAmount'];
         }
+        $res->setAuthority($request['TraceNo']);
 
         return $res;
     }
