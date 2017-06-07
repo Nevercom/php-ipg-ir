@@ -42,6 +42,8 @@ class ValidationResponse {
     private $transactionId;
     /** @var int */
     private $amount;
+    /** @var  string */
+    private $authority;
 
     /**
      * @return boolean
@@ -111,6 +113,20 @@ class ValidationResponse {
      */
     public function setAmount($amount) {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthority() {
+        return $this->authority;
+    }
+
+    /**
+     * @param string $authority
+     */
+    public function setAuthority($authority) {
+        $this->authority = $authority;
     }
 
 
