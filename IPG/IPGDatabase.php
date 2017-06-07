@@ -93,11 +93,14 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
         return $this->db->getInsertId();
     }
 
-    public function updateTransaction($payId, $refId = NULL, $status = NULL) {
+    public function updateTransaction($payId, $refId = NULL,$authorityId = NULL ,$status = NULL) {
         $this->db->where($this->PAY_ID, $payId);
         $data = Array();
         if (!empty($refId)) {
             $data[$this->REF_ID] = $refId;
+        }
+        if (!empty($authorityId)) {
+            $data[$this->AUTHORITY] = $authorityId;
         }
         if (!empty($status)) {
             $data[$this->STATUS] = $status;
