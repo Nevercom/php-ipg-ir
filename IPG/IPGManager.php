@@ -49,7 +49,8 @@ class IPGManager {
         5000 => "no PayId",
         5001 => "already verified",
         5002 => 'already settled',
-        5003 => 'reversed'
+        5003 => 'reversed',
+        5004 => 'In Progress',
     );
     private $amount;
 
@@ -170,6 +171,8 @@ class IPGManager {
 
             return $vRes;
         }
+        // Change the state to IN_PROGRESS, to prevent double spending in highly concurrent situations
+        $this->dbMan->updateTransaction($payId,null,AbstractIPGDatabaseManager::IN_PROGRESS);
         // each method call is logged
         $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\isPaymentValid", $request);
         // query the Gateway to check if this payment is valid in their eyes

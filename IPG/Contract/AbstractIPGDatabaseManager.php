@@ -33,6 +33,7 @@ abstract class AbstractIPGDatabaseManager {
     const VERIFIED = 1;
     const SETTLED  = 2;
     const REVERSED = 3;
+    const IN_PROGRESS = 4;
 
     /**
      * This class handles all the database interaction supporting the Payment process
