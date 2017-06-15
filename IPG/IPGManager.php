@@ -28,6 +28,7 @@
 * 
 *  Created by nevercom at 7/18/16 2:46 PM
 */
+
 namespace IPG;
 
 use Exception;
@@ -172,7 +173,7 @@ class IPGManager {
             return $vRes;
         }
         // Change the state to IN_PROGRESS, to prevent double spending in highly concurrent situations
-        $this->dbMan->updateTransaction($payId,null,null,AbstractIPGDatabaseManager::IN_PROGRESS);
+        $this->dbMan->updateTransaction($payId, NULL, NULL, AbstractIPGDatabaseManager::IN_PROGRESS);
         // each method call is logged
         $logId = $this->dbMan->logMethodCall($payId, get_class($this->ipg) . "\\isPaymentValid", $request);
         // query the Gateway to check if this payment is valid in their eyes
@@ -193,10 +194,10 @@ class IPGManager {
             "AuthorityId"   => $response->getAuthority()
         ], $this->ipg->getErrorCode());
 
-        if (!$response->isValid()) {
-            // store the reference id
-            $this->dbMan->updateTransaction($payId, $response->getReferenceId(), $response->getAuthority());
+        // store the reference id
+        $this->dbMan->updateTransaction($payId, $response->getReferenceId(), $response->getAuthority());
 
+        if (!$response->isValid()) {
             return $vRes;
         }
 
@@ -237,7 +238,7 @@ class IPGManager {
         $status = $verificationResponse->isSuccessful();
         if ($status) {
 
-            $this->dbMan->updateTransaction($payId, $referenceId, null,AbstractIPGDatabaseManager::VERIFIED);
+            $this->dbMan->updateTransaction($payId, $referenceId, NULL, AbstractIPGDatabaseManager::VERIFIED);
 
         }
 
@@ -300,7 +301,7 @@ class IPGManager {
             "isSuccessful" => $res
         ], $this->ipg->getErrorCode());
         if ($res) {
-            $this->dbMan->updateTransaction($payId, $referenceId, null,AbstractIPGDatabaseManager::SETTLED);
+            $this->dbMan->updateTransaction($payId, $referenceId, NULL, AbstractIPGDatabaseManager::SETTLED);
         }
 
         return $res;
@@ -331,7 +332,7 @@ class IPGManager {
             "isSuccessful" => $res
         ], $this->ipg->getErrorCode());
         if ($res) {
-            $this->dbMan->updateTransaction($payId, $referenceId, null, AbstractIPGDatabaseManager::REVERSED);
+            $this->dbMan->updateTransaction($payId, $referenceId, NULL, AbstractIPGDatabaseManager::REVERSED);
         }
 
         return $res;
