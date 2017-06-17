@@ -40,7 +40,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
     private $BANK_ID   = 'bank_id';
     private $AMOUNT    = 'amount';
     private $REF_ID    = 'reference_id';
-    private $AUTHORITY = 'authority';
+    private $AUTHORITY = 'authority_id';
     private $STATUS    = 'status';
     private $CR_AT     = 'created_at';
     private $UP_AT     = 'updated_at';
