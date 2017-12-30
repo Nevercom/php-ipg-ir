@@ -55,6 +55,14 @@ class IPGManager {
     );
     private $amount;
 
+    /**
+     * IPGManager constructor.
+     *
+     * @param AbstractIPG                $ipg
+     * @param AbstractIPGDatabaseManager $db
+     *
+     * @throws Exception
+     */
     public function __construct(AbstractIPG $ipg, AbstractIPGDatabaseManager $db) {
         if (!($ipg instanceof AbstractIPG)) {
             throw new Exception("Provided class is not an instance of AbstractIPG class");
@@ -94,7 +102,7 @@ class IPGManager {
         }
         $amount = $db->getTransactionAmount($request[self::PAY_ID]);
         try {
-            $ipg = new $gateway($amount);
+            $ipg = new $gateway(['amount' => $amount]);
         } catch (Exception $e) {
             throw new Exception("There is no valid gateway for this transaction. Gateway Class: {$gateway}");
         }
@@ -186,13 +194,7 @@ class IPGManager {
         $this->referenceId = $response->getReferenceId();
         // Again, each method response is logged
         $vRes->setReferenceId($response->getReferenceId());
-        $this->dbMan->logMethodResponse($logId, [
-            "isValid"       => $response->isValid(),
-            "ReferenceId"   => $response->getReferenceId(),
-            "PayId"         => $response->getPayId(),
-            "TransactionId" => $response->getTransactionId(),
-            "AuthorityId"   => $response->getAuthority()
-        ], $this->ipg->getErrorCode());
+        $this->dbMan->logMethodResponse($logId, $response->toArray(), $this->ipg->getErrorCode());
 
         // store the reference id
         $this->dbMan->updateTransaction($payId, $response->getReferenceId(), $response->getAuthority());
@@ -228,11 +230,7 @@ class IPGManager {
             $verificationResponse = new VerificationResponse();
         }
 
-        $this->dbMan->logMethodResponse($logId, [
-            "isSuccessful"  => $verificationResponse->isSuccessful(),
-            "Status"        => $verificationResponse->getStatus(),
-            "InvoiceNumber" => $verificationResponse->getInvoiceNumber()
-        ], $this->ipg->getErrorCode());
+        $this->dbMan->logMethodResponse($logId, $verificationResponse->toArray(), $this->ipg->getErrorCode());
 
 
         $status = $verificationResponse->isSuccessful();
