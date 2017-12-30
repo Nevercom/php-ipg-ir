@@ -28,11 +28,12 @@
 * 
 *  Created by nevercom at 7/20/16 6:48 PM
 */
+
 namespace IPG\Contract;
 abstract class AbstractIPGDatabaseManager {
-    const VERIFIED = 1;
-    const SETTLED  = 2;
-    const REVERSED = 3;
+    const VERIFIED    = 1;
+    const SETTLED     = 2;
+    const REVERSED    = 3;
     const IN_PROGRESS = 4;
 
     /**
@@ -104,6 +105,13 @@ abstract class AbstractIPGDatabaseManager {
      *         </ul>
      */
     public abstract function getTransactionStatus($payId);
+
+    /**
+     * @param string $referenceId
+     *
+     * @return boolean
+     */
+    public abstract function isReferenceIdUnique($referenceId);
 
     /**
      * Returns transaction Id of an specific Pay ID

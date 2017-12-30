@@ -184,4 +184,17 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
 
         return $row[$this->AMOUNT];
     }
+
+    /**
+     * @param string $referenceId
+     *
+     * @return boolean
+     */
+    public function isReferenceIdUnique($referenceId) {
+        if (empty($referenceId)) {
+            return FALSE;
+        }
+
+        return !$this->db->where($this->REF_ID, $referenceId)->has($this->TABLE_TRANSACTIONS);
+    }
 }

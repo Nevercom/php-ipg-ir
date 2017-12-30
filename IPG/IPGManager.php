@@ -188,6 +188,9 @@ class IPGManager {
         $this->referenceId = $response->getReferenceId();
         // Again, each method response is logged
         $vRes->setReferenceId($response->getReferenceId());
+        if(!$this->dbMan->isReferenceIdUnique($this->referenceId)){
+            $vRes->setValid(FALSE);
+        }
         $this->dbMan->logMethodResponse($logId, $response->toArray(), $this->ipg->getErrorCode());
 
         // store the reference id
