@@ -139,13 +139,7 @@ class IPGManager {
         try {
             $paymentResponse = $this->ipg->startPayment($payId, $amount, $callbackUrl);
             // and in the end, we update the logged record in the database to include the method response
-            $this->dbMan->logMethodResponse($logId, [
-                "isIsSuccessful" => $paymentResponse->isIsSuccessful(),
-                "ReferenceId"    => $paymentResponse->getReferenceId(),
-                "TargetUrl"      => $paymentResponse->getTargetUrl(),
-                "Data"           => $paymentResponse->getData()
-            ], $this->ipg->getErrorCode()
-            );
+            $this->dbMan->logMethodResponse($logId, $paymentResponse->toArray(), $this->ipg->getErrorCode());
 
             return $paymentResponse;
         } catch (Exception $e) {
