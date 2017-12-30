@@ -4,15 +4,15 @@ namespace IPG\Models;
 
 class PaymentResponse extends BaseModel {
     /** @var  $isSuccessful boolean */
-    private $isSuccessful;
+    protected $isSuccessful;
     /** @var  $transactionId int */
-    private $transactionId;
+    protected $transactionId;
     /** @var  $referenceId string */
-    private $referenceId;
+    protected $referenceId;
     /** @var  $targetUrl string */
-    private $targetUrl;
+    protected $targetUrl;
     /** @var  $data array */
-    private $data;
+    protected $data;
 
     /**
      * @return boolean

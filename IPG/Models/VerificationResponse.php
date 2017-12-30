@@ -2,11 +2,11 @@
 namespace IPG\Models;
 class VerificationResponse extends BaseModel {
     /** @var  boolean */
-    private $isSuccessful;
+    protected $isSuccessful;
     /** @var  int */
-    private $status;
+    protected $status;
     /** @var  string */
-    private $invoiceNumber;
+    protected $invoiceNumber;
 
     /**
      * @return boolean

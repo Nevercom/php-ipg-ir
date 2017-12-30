@@ -33,17 +33,17 @@ namespace IPG\Models;
 
 class ValidationResponse extends BaseModel {
     /** @var  boolean */
-    private $valid;
+    protected $valid;
     /** @var  mixed */
-    private $referenceId;
+    protected $referenceId;
     /** @var  int */
-    private $payId;
+    protected $payId;
     /** @var  int */
-    private $transactionId;
+    protected $transactionId;
     /** @var int */
-    private $amount;
+    protected $amount;
     /** @var  string */
-    private $authority;
+    protected $authority;
 
     /**
      * @return boolean
