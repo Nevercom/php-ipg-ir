@@ -31,7 +31,7 @@
 namespace IPG\Models;
 
 
-class ValidationResponse {
+class ValidationResponse extends BaseModel {
     /** @var  boolean */
     private $valid;
     /** @var  mixed */

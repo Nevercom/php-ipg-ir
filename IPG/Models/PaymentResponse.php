@@ -2,7 +2,7 @@
 
 namespace IPG\Models;
 
-class PaymentResponse {
+class PaymentResponse extends BaseModel {
     /** @var  $isSuccessful boolean */
     private $isSuccessful;
     /** @var  $transactionId int */

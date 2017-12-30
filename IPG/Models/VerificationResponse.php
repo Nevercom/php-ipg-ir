@@ -1,6 +1,6 @@
 <?php
 namespace IPG\Models;
-class VerificationResponse {
+class VerificationResponse extends BaseModel {
     /** @var  boolean */
     private $isSuccessful;
     /** @var  int */
