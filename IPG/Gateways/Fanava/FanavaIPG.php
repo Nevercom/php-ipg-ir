@@ -42,11 +42,11 @@ use IPG\Models\VerificationResponse;
  * @package IPG\Gateways\Fanava
  */
 class FanavaIPG extends AbstractIPG {
-    private $service;
     /** @var string Username */
     protected $username;
     /** @var  string Password */
     protected $password;
+    private   $service;
     private   $sessionId;
 
     /**
@@ -98,20 +98,34 @@ class FanavaIPG extends AbstractIPG {
     public function isPaymentValid($request) {
         $isValid = isset($request['ResNum']) &&
                    isset($request['RefNum']) &&
+                   $request['transactionAmount'] > 0 &&
                    strtolower($request['State']) == 'ok' &&
                    $request['MID'] == $this->username;
 
+//        if ($request['transactionAmount'] != $this->amount) {
+//            $isValid = FALSE;
+//        }
         $res = new ValidationResponse();
         $res->setValid($isValid);
         $res->setPayId($request['ResNum']);
         $res->setAmount($request['transactionAmount']);
         $res->setReferenceId($request['RefNum']);
-        if (isset($request['transactionAmount'])) {
-            $this->amount = $request['transactionAmount'];
-        }
+
         $res->setAuthority($request['TraceNo']);
 
         return $res;
+    }
+
+    /**
+     * @param $paymentId
+     * @param $referenceId
+     *
+     * @return bool
+     */
+    public function inquiry($paymentId, $referenceId) {
+        $v = $this->verify($paymentId, $referenceId);
+
+        return $v->isSuccessful();
     }
 
     /**
@@ -136,8 +150,10 @@ class FanavaIPG extends AbstractIPG {
             $result->return->verifyResponseResults                    = new verifyResponseResult();
             $result->return->verifyResponseResults->verificationError = "ERROR";
         }
-        $isSuccessfull = !isset($result->return->verifyResponseResults->verificationError)
-                         || empty($result->return->verifyResponseResults->verificationError);
+        $isSuccessfull = (
+                             !isset($result->return->verifyResponseResults->verificationError)
+                             || empty($result->return->verifyResponseResults->verificationError)
+                         ) && $result->return->verifyResponseResults->amount == $this->amount;
 
         $res = new VerificationResponse();
         $res->setSuccessful($isSuccessfull);
@@ -148,15 +164,38 @@ class FanavaIPG extends AbstractIPG {
     }
 
     /**
-     * @param $paymentId
-     * @param $referenceId
-     *
-     * @return bool
+     * @return wsContext
      */
-    public function inquiry($paymentId, $referenceId) {
-        $v = $this->verify($paymentId, $referenceId);
+    private function getContext() {
+        if (empty($this->sessionId)) {
+            $this->login();
+        }
+        $c            = new wsContext();
+        $data         = new data();
+        $entry        = new entry();
+        $entry->key   = 'SESSION_ID';
+        $entry->value = $this->sessionId;
+        $data->entry  = $entry;
+        $c->data      = $data;
 
-        return $v->isSuccessful();
+        return $c;
+    }
+
+    private function login() {
+        try {
+            $loginParam   = new login();
+            $loginRequest = new loginRequest();
+
+            $loginRequest->username   = $this->username;
+            $loginRequest->password   = $this->password;
+            $loginParam->loginRequest = $loginRequest;
+
+            $result = $this->service->login($loginParam);
+
+            $this->sessionId = $result->return;
+        } catch (Exception $e) {
+            $this->sessionId = NULL;
+        }
     }
 
     /**
@@ -209,41 +248,5 @@ class FanavaIPG extends AbstractIPG {
      */
     public function getCanonicalName() {
         return get_class();
-    }
-
-
-    /**
-     * @return wsContext
-     */
-    private function getContext() {
-        if (empty($this->sessionId)) {
-            $this->login();
-        }
-        $c            = new wsContext();
-        $data         = new data();
-        $entry        = new entry();
-        $entry->key   = 'SESSION_ID';
-        $entry->value = $this->sessionId;
-        $data->entry  = $entry;
-        $c->data      = $data;
-
-        return $c;
-    }
-
-    private function login() {
-        try {
-            $loginParam   = new login();
-            $loginRequest = new loginRequest();
-
-            $loginRequest->username   = $this->username;
-            $loginRequest->password   = $this->password;
-            $loginParam->loginRequest = $loginRequest;
-
-            $result = $this->service->login($loginParam);
-
-            $this->sessionId = $result->return;
-        } catch (Exception $e) {
-            $this->sessionId = NULL;
-        }
     }
 }
