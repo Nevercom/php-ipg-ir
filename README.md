@@ -35,6 +35,7 @@ This library uses `MySQL` database by default, and a predefined `DB Schema`. you
       `bank_id` tinyint(4) NOT NULL,
       `amount` bigint(20) NOT NULL,
       `reference_id` varchar(256) NOT NULL,
+      `authority_id` varchar(255) DEFAULT NULL,
       `status` tinyint(3) NOT NULL,
       `created_at` datetime NOT NULL,
       `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
