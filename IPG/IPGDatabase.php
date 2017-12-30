@@ -28,6 +28,7 @@
 * 
 *  Created by nevercom at 7/19/16 6:46 PM
 */
+
 namespace IPG;
 
 use IPG\Contract\AbstractIPGDatabaseManager;
@@ -60,7 +61,7 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
      * @param string $password MySQL password
      * @param string $db       Database name
      * @param string $host     MySQL database host address
-     * @param string    $port     MySQL database port
+     * @param string $port     MySQL database port
      * @param string $charset  Character Set for the database connection
      *
      * @throws \Exception if any error occur in connecting to database, an exception is thrown explaining the issue.
@@ -93,8 +94,8 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
         return $this->db->getInsertId();
     }
 
-    public function updateTransaction($payId, $refId = NULL,$authorityId = NULL ,$status = NULL) {
-        $this->db->where($this->PAY_ID, $payId);
+    public function updateTransaction($payId, $refId = NULL, $authorityId = NULL, $status = NULL) {
+
         $data = Array();
         if (!empty($refId)) {
             $data[$this->REF_ID] = $refId;
@@ -109,12 +110,12 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
             return FALSE;
         }
 
-        return $this->db->update($this->TABLE_TRANSACTIONS, $data);
+        return $this->db->where($this->PAY_ID, $payId)->update($this->TABLE_TRANSACTIONS, $data);
     }
 
     public function getPaymentGateway($payId) {
-        $this->db->where($this->PAY_ID, $payId);
-        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->BANK_NAME);
+
+        $row = $this->db->where($this->PAY_ID, $payId)->getOne($this->TABLE_TRANSACTIONS, $this->BANK_NAME);
 
         return $row[$this->BANK_NAME];
     }
@@ -138,9 +139,8 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
         if (!$this->logging) {
             return FALSE;
         }
-        $this->db->where('id', $id);
 
-        return $this->db->update($this->TABLE_LOGS, [
+        return $this->db->where('id', $id)->update($this->TABLE_LOGS, [
             "output"      => is_array($output) ? json_encode($output, JSON_UNESCAPED_UNICODE) : $output,
             "status_code" => $statusCode
         ]);
@@ -165,22 +165,22 @@ class IPGDatabase extends AbstractIPGDatabaseManager {
      *             </ul>
      */
     public function getTransactionStatus($payId) {
-        $this->db->where($this->PAY_ID, $payId);
-        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->STATUS);
+
+        $row = $this->db->where($this->PAY_ID, $payId)->getOne($this->TABLE_TRANSACTIONS, $this->STATUS);
 
         return $row[$this->STATUS];
     }
 
     public function getTransactionId($payId) {
-        $this->db->where($this->PAY_ID, $payId);
-        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->TR_ID);
+
+        $row = $this->db->where($this->PAY_ID, $payId)->getOne($this->TABLE_TRANSACTIONS, $this->TR_ID);
 
         return $row[$this->TR_ID];
     }
 
     public function getTransactionAmount($payId) {
-        $this->db->where($this->PAY_ID, $payId);
-        $row = $this->db->getOne($this->TABLE_TRANSACTIONS, $this->AMOUNT);
+
+        $row = $this->db->where($this->PAY_ID, $payId)->getOne($this->TABLE_TRANSACTIONS, $this->AMOUNT);
 
         return $row[$this->AMOUNT];
     }
