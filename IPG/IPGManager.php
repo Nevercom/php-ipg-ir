@@ -190,6 +190,7 @@ class IPGManager {
         $vRes->setReferenceId($response->getReferenceId());
         if(!$this->dbMan->isReferenceIdUnique($this->referenceId)){
             $vRes->setValid(FALSE);
+            $response->setValid(FALSE);
         }
         $this->dbMan->logMethodResponse($logId, $response->toArray(), $this->ipg->getErrorCode());
 
