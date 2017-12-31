@@ -188,7 +188,8 @@ class IPGManager {
         $this->referenceId = $response->getReferenceId();
         // Again, each method response is logged
         $vRes->setReferenceId($response->getReferenceId());
-        if(!$this->dbMan->isReferenceIdUnique($this->referenceId)){
+        if (!$this->dbMan->isReferenceIdUnique($this->referenceId)) {
+            $this->errorCode = 5001;
             $vRes->setValid(FALSE);
             $response->setValid(FALSE);
         }
