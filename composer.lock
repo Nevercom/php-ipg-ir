@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "295de096b9e207560f014e381867d530",
-    "content-hash": "10e2ebdcd92581960da119b66b1e5c5f",
+    "content-hash": "54ba10e2087f06a012e242e4e07931fe",
     "packages": [
         {
             "name": "joshcam/mysqli-database-class",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joshcam/PHP-MySQLi-Database-Class.git",
-                "reference": "64b5a57b5a4219fcc527d8b551289699a62abb61"
+                "url": "https://github.com/ThingEngineer/PHP-MySQLi-Database-Class.git",
+                "reference": "30d7d0fe8bfe2142b48f23527787a2bc9de0639a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joshcam/PHP-MySQLi-Database-Class/zipball/64b5a57b5a4219fcc527d8b551289699a62abb61",
-                "reference": "64b5a57b5a4219fcc527d8b551289699a62abb61",
+                "url": "https://api.github.com/repos/ThingEngineer/PHP-MySQLi-Database-Class/zipball/30d7d0fe8bfe2142b48f23527787a2bc9de0639a",
+                "reference": "30d7d0fe8bfe2142b48f23527787a2bc9de0639a",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +49,7 @@
                 }
             ],
             "description": "PHP MySQL Wrapper and object mapper which utilizes MySQLi and prepared statements",
-            "time": "2016-07-13 11:27:15"
+            "time": "2017-11-30T10:29:41+00:00"
         }
     ],
     "packages-dev": [],
@@ -61,6 +60,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.3.0"
+    },
     "platform-dev": []
 }
