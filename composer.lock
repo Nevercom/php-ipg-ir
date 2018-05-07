@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54ba10e2087f06a012e242e4e07931fe",
+    "content-hash": "bf7713dfd715dd9ecaebeead8a0b4e8c",
     "packages": [
         {
             "name": "joshcam/mysqli-database-class",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThingEngineer/PHP-MySQLi-Database-Class.git",
-                "reference": "30d7d0fe8bfe2142b48f23527787a2bc9de0639a"
+                "reference": "e3497b7e6b00fd53cbb2fdcf1d617818a9717805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThingEngineer/PHP-MySQLi-Database-Class/zipball/30d7d0fe8bfe2142b48f23527787a2bc9de0639a",
-                "reference": "30d7d0fe8bfe2142b48f23527787a2bc9de0639a",
+                "url": "https://api.github.com/repos/ThingEngineer/PHP-MySQLi-Database-Class/zipball/e3497b7e6b00fd53cbb2fdcf1d617818a9717805",
+                "reference": "e3497b7e6b00fd53cbb2fdcf1d617818a9717805",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-3.0"
+                "GPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -49,12 +49,12 @@
                 }
             ],
             "description": "PHP MySQL Wrapper and object mapper which utilizes MySQLi and prepared statements",
-            "time": "2017-11-30T10:29:41+00:00"
+            "time": "2018-03-14T20:10:27+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "joshcam/mysqli-database-class": 20
     },
