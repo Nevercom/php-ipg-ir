@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbffd1d1b675ea66a95e73982916fbea",
+    "content-hash": "10b8f41d07ce3b2fe8607df4d7a05834",
     "packages": [
         {
             "name": "joshcam/mysqli-database-class",
