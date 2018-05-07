@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf7713dfd715dd9ecaebeead8a0b4e8c",
+    "content-hash": "dbffd1d1b675ea66a95e73982916fbea",
     "packages": [
         {
             "name": "joshcam/mysqli-database-class",
-            "version": "dev-master",
+            "version": "v2.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThingEngineer/PHP-MySQLi-Database-Class.git",
-                "reference": "e3497b7e6b00fd53cbb2fdcf1d617818a9717805"
+                "reference": "e122f8e0c22165092b81578ecd618842e9e01d64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThingEngineer/PHP-MySQLi-Database-Class/zipball/e3497b7e6b00fd53cbb2fdcf1d617818a9717805",
-                "reference": "e3497b7e6b00fd53cbb2fdcf1d617818a9717805",
+                "url": "https://api.github.com/repos/ThingEngineer/PHP-MySQLi-Database-Class/zipball/e122f8e0c22165092b81578ecd618842e9e01d64",
+                "reference": "e122f8e0c22165092b81578ecd618842e9e01d64",
                 "shasum": ""
             },
             "require": {
@@ -49,15 +49,13 @@
                 }
             ],
             "description": "PHP MySQL Wrapper and object mapper which utilizes MySQLi and prepared statements",
-            "time": "2018-03-14T20:10:27+00:00"
+            "time": "2018-02-08T05:07:59+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "joshcam/mysqli-database-class": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
